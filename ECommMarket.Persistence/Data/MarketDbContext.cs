@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECommMarket.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommMarket.Persistence.Data
@@ -12,5 +8,10 @@ namespace ECommMarket.Persistence.Data
         public MarketDbContext(DbContextOptions<MarketDbContext> options) : base(options)
         {
         }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }
