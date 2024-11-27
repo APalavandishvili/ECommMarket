@@ -1,6 +1,6 @@
 ﻿namespace ECommMarket.Domain.Entities
 {
-    public class News : BaseEntity
+    public class News : BaseEntity<int>
     {
         public string? NewsInfo { get; set; }
         public string? Description { get; set; }

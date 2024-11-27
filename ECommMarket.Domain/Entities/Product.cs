@@ -1,6 +1,6 @@
 ﻿namespace ECommMarket.Domain.Entities
 {
-    public class Product : BaseEntity
+    public class Product : BaseEntity<int>
     {
         public string? ProductName { get; set; }
         public int Quantity { get; set; }

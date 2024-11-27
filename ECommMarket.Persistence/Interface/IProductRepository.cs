@@ -2,7 +2,7 @@
 
 namespace ECommMarket.Persistence.Interface
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product, int>
     {
     }
 }

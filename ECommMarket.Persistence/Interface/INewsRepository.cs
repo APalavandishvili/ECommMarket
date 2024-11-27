@@ -2,7 +2,7 @@
 
 namespace ECommMarket.Persistence.Interface
 {
-    public interface INewsRepository : IRepository<News>
+    public interface INewsRepository : IRepository<News, int>
     {
     }
 }
