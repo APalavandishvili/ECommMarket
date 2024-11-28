@@ -13,4 +13,14 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Cart\" />
+    <Folder Include="Views\News\" />
+    <Folder Include="Views\Payment\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcommMarket.Application\EcommMarket.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,8 +1,7 @@
 ﻿using ECommMarket.Domain.Entities;
 
-namespace ECommMarket.Persistence.Interface
+namespace ECommMarket.Persistence.Interface;
+
+public interface ICartRepository : IRepository<Cart, int>
 {
-    public interface ICartRepository : IRepository<Cart, int>
-    {
-    }
 }

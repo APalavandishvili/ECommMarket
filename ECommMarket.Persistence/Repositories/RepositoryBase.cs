@@ -50,7 +50,7 @@ public class RepositoryBase<TEntity, TEntityId> : IRepository<TEntity, TEntityId
         return entity;
     }
 
-    public virtual async void Update(TEntity entity)
+    public virtual async Task Update(TEntity entity)
     {
         db.Set<TEntity>().Update(entity);
 

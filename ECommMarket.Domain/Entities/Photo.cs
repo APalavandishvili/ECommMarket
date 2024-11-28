@@ -2,10 +2,8 @@
 {
     public class Photo : BaseEntity<int>
     {
-        public string? PhotoName { get; set; }
-        public string? PhotoUrl { get; set; }
-        public int PhotoWidth { get; set; }
-        public int PhotoHeight { get; set; }
-        public Product? Product { get; set; }
+        public string PhotoName { get; set; }
+        public string PhotoUrl { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

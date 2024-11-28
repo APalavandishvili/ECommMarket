@@ -1,4 +1,5 @@
 ﻿using ECommMarket.Persistence.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,19 @@ public static class PersistenceExtension
     {
         services.AddDbContext<MarketDbContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
 
+
         return services;
+    }
+
+    public static IApplicationBuilder ConfigurePersistence(this IApplicationBuilder app, MarketDbContext db)
+    {
+        if (db.Database.IsSqlite())
+        {
+            db.Database.EnsureCreatedAsync().Wait();
+
+            db.Seed().Wait();
+        }
+
+        return app;
     }
 }

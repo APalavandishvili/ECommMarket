@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommMarket.Api", "ECommMarket.Api\ECommMarket.Api.csproj", "{4A89F9E6-3BC5-4EEE-9A76-CA1F16602FF1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D9F55070-AE38-4320-8F57-37DDC54E0D57} = {D9F55070-AE38-4320-8F57-37DDC54E0D57}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommMarket.Persistence", "ECommMarket.Persistence\ECommMarket.Persistence.csproj", "{899A8924-ABBA-4E79-BF1C-4E6B0F6B34FB}"
 EndProject
@@ -11,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommMarket.Application", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommMarket.Domain", "ECommMarket.Domain\ECommMarket.Domain.csproj", "{7A462419-F12E-4EE4-B428-045208377463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommMarket.App", "ECommMarket.App\ECommMarket.App.csproj", "{91FC44DC-9FE5-4C99-8E2A-D5FF700CFF0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommMarket.App", "ECommMarket.App\ECommMarket.App.csproj", "{91FC44DC-9FE5-4C99-8E2A-D5FF700CFF0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

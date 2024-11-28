@@ -10,6 +10,6 @@ namespace ECommMarket.Persistence.Interface
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntityId> AddAsync(TEntity entity);
         Task Delete(TEntityId id);
-        void Update(TEntity entity);
+        Task Update(TEntity entity);
     }
 }
