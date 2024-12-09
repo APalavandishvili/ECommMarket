@@ -1,8 +1,7 @@
 ﻿using ECommMarket.Domain.Entities;
 
-namespace ECommMarket.Persistence.Interface
+namespace ECommMarket.Persistence.Interface;
+
+public interface INewsRepository : IRepository<News>
 {
-    public interface INewsRepository : IRepository<News>
-    {
-    }
 }

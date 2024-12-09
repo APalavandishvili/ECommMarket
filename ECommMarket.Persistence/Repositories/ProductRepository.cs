@@ -3,67 +3,53 @@ using ECommMarket.Persistence.Data;
 using ECommMarket.Persistence.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommMarket.Persistence.Repositories
-{
-    public class ProductRepository : AbstractRepository, IProductRepository
-    {
-        public ProductRepository(MarketDbContext context) : base(context)
-        {
-        }
+namespace ECommMarket.Persistence.Repositories;
 
-        public async Task AddAsync(Product entity)
+public class ProductRepository(MarketDbContext context) : IProductRepository
+{
+    public async Task<int> AddAsync(Product entity)
+    {
+        await context.Products.AddAsync(entity);
+        await context.SaveChangesAsync();
+
+        return entity.Id;
+    }
+
+    public async Task Delete(int id)
+    {
+        var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        if(product is not null)
         {
-            context.Products.Add(entity);
+            context.Products.Remove(product);
             await context.SaveChangesAsync();
         }
+    }
 
-        public void Delete(Product entity)
+    public async Task<IEnumerable<Product>> GetAllAsync()
+    {
+        return await context.Products.Include(p => p.Photos).ToListAsync();
+    }
+
+    public async Task<Product> GetByIdAsync(int id)
+    {
+        return await context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
+    }
+
+    public async Task Update(Product entity)
+    {
+        var product = await context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == entity.Id);
+        if(product is null)
         {
-            context.Products.Remove(entity);
-            context.SaveChanges();
+            return;
         }
 
-        public async Task DeleteByIdAsync(int id)
-        {
-            var product = context.Products.FirstOrDefault(x => x.Id == id);
-            if (product == null)
-            {
-                Console.WriteLine($"Product with Id : {id} Was not Found");
-            }
-            context.Products.Remove(product);
-            context.SaveChanges();
-        }
+        product.Photos = entity.Photos;
+        product.Quantity = entity.Quantity;
+        product.Price = entity.Price;
+        product.Description = entity.Description;
+        product.UpdateTimestamp = DateTime.Now;
+        product.ProductName = entity.ProductName;
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
-        {
-            var products = await context.Products.ToListAsync();
-            return products;
-        }
-
-        public async Task<Product> GetByIdAsync(int id)
-        {
-            var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
-            return product;
-        }
-
-        public void Update(Product entity)
-        {
-            var oldEntity = context.Products.FirstOrDefault(p => p.Id == entity.Id);
-            if(oldEntity != null)
-            {
-                oldEntity.UpdateBy = entity.UpdateBy;
-                oldEntity.UpdateDate = entity.UpdateDate;
-                oldEntity.CreationDate = entity.CreationDate;
-                oldEntity.ProductName = entity.ProductName;
-                oldEntity.Quantity = entity.Quantity;
-                oldEntity.Price = entity.Price;
-                oldEntity.Description = entity.Description;
-                context.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine($"Product With Id : {entity.Id} Was not Found");
-            }
-        }
+        await context.SaveChangesAsync();
     }
 }

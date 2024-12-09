@@ -1,14 +1,14 @@
 ﻿using ECommMarket.Domain.Entities;
+using ECommMarket.Domain.Interfaces;
 
 namespace ECommMarket.Persistence.Interface
 {
-    public interface IRepository<TEntity> where TEntity : BaseEntity
+    public interface IRepository<TEntity> where TEntity : class
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int id);
-        Task AddAsync(TEntity entity);
-        void Delete(TEntity entity);
-        Task DeleteByIdAsync(int id);
-        void Update(TEntity entity);
+        Task<int> AddAsync(TEntity entity);
+        Task Delete(int id);
+        Task Update(TEntity entity);
     }
 }

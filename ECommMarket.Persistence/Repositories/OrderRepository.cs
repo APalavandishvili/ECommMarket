@@ -3,64 +3,40 @@ using ECommMarket.Persistence.Data;
 using ECommMarket.Persistence.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommMarket.Persistence.Repositories
+namespace ECommMarket.Persistence.Repositories;
+
+public class OrderRepository(MarketDbContext context) : IOrderRepository
 {
-    public class OrderRepository : AbstractRepository, IOrderRepository
+    public async Task<int> AddAsync(Order entity)
     {
-        public OrderRepository(MarketDbContext context) : base(context)
-        {
-        }
+        await context.Orders.AddAsync(entity);
+        await context.SaveChangesAsync();
 
-        public async Task AddAsync(Order entity)
-        {
-            context.Orders.Add(entity);
-            await context.SaveChangesAsync();
-        }
+        return entity.Id;
+    }
 
-        public void Delete(Order entity)
+    public async Task Delete(int id)
+    {
+        Order? order = await context.Orders.FirstOrDefaultAsync(p => p.Id == id);
+        if (order is not null)
         {
-            context.Orders.Remove(entity);
-            context.SaveChanges();
-        }
-
-        public async Task DeleteByIdAsync(int id)
-        {
-            var order = context.Orders.FirstOrDefault(o => o.Id == id);
-            if(order == null)
-            {
-                Console.WriteLine($"Order with Id : {id} Was not Found");
-            }
             context.Orders.Remove(order);
             await context.SaveChangesAsync();
         }
+    }
 
-        public async Task<IEnumerable<Order>> GetAllAsync()
-        {
-            var orders = await context.Orders.ToListAsync();
-            return orders;
-        }
+    public async Task<IEnumerable<Order>> GetAllAsync()
+    {
+        return await context.Orders.Include(x => x.Items).ToListAsync();
+    }
 
-        public async Task<Order> GetByIdAsync(int id)
-        {
-            var order = await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
-            return order;
-        }
+    public async Task<Order> GetByIdAsync(int id)
+    {
+        return await context.Orders.Include(x => x.Items).FirstOrDefaultAsync(o => o.Id == id);
+    }
 
-        public void Update(Order entity)
-        {
-            var oldEntity = context.Orders.FirstOrDefault(o => o.Id == entity.Id);
-            if (oldEntity != null)
-            {
-                oldEntity.UpdateBy = entity.UpdateBy;
-                oldEntity.UpdateDate = entity.UpdateDate;
-                oldEntity.CreationDate = entity.CreationDate;
-                oldEntity.TransactionId = entity.TransactionId;
-                context.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine($"Order With Id : {entity.Id} Was not Found");
-            }
-        }
+    public Task Update(Order entity)
+    {
+        throw new NotImplementedException();
     }
 }

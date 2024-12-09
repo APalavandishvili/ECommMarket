@@ -2,68 +2,54 @@
 using ECommMarket.Persistence.Data;
 using ECommMarket.Persistence.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
-namespace ECommMarket.Persistence.Repositories
+namespace ECommMarket.Persistence.Repositories;
+
+public class NewsRepository(MarketDbContext context) : INewsRepository
 {
-    public class NewsRepository : AbstractRepository, INewsRepository
+    public async Task<int> AddAsync(News entity)
     {
-        public NewsRepository(MarketDbContext context) : base(context)
-        {
-        }
+        await context.News.AddAsync(entity);
+        await context.SaveChangesAsync();
 
-        public async Task AddAsync(News entity)
-        {
-            context.News.Add(entity);
-            await context.SaveChangesAsync();
-        }
+        return entity.Id;
+    }
 
-        public void Delete(News entity)
+    public async Task Delete(int id)
+    {
+        News? news = await context.News.FirstOrDefaultAsync(p => p.Id == id);
+        if (news is not null)
         {
-            context.News.Remove(entity);
-            context.SaveChanges();
-        }
-
-        public async Task DeleteByIdAsync(int id)
-        {
-            var news = context.News.FirstOrDefault(x => x.Id == id);
-            if (news == null)
-            {
-                Console.WriteLine($"Report with Id : {id} Was not found");
-            }
             context.News.Remove(news);
             await context.SaveChangesAsync();
         }
+    }
 
-        public async Task<IEnumerable<News>> GetAllAsync()
+    public async Task<IEnumerable<News>> GetAllAsync()
+    {
+        return await context.News.ToListAsync();
+    }
+
+    public async Task<News> GetByIdAsync(int id)
+    {
+        return await context.News.FirstOrDefaultAsync(o => o.Id == id);
+    }
+
+    public async Task Update(News entity)
+    {
+        News? news = await context.News.FirstOrDefaultAsync(p => p.Id == entity.Id);
+        if (news is null)
         {
-            var news = await context.News.ToListAsync();
-            return news;
+            return;
         }
 
-        public async Task<News> GetByIdAsync(int id)
-        {
-            var news = await context.News.FirstOrDefaultAsync(x => x.Id == id);
-            return news;
-        }
-
-        public void Update(News entity)
-        {
-            var oldEntity = context.News.FirstOrDefault(x => x.Id == entity.Id);
-            if (oldEntity != null)
-            {
-                oldEntity.UpdateBy = entity.UpdateBy;
-                oldEntity.UpdateDate = entity.UpdateDate;
-                oldEntity.CreationDate = entity.CreationDate;
-                oldEntity.Description = entity.Description;
-                oldEntity.Details = entity.Details;
-                oldEntity.AuthorId = entity.AuthorId;
-                oldEntity.NewsInfo = entity.NewsInfo;
-                context.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine($"Report with Id : {entity.Id} Was not Found");
-            }
-        }
+        news.Title = entity.Title;
+        news.Details = entity.Details;
+        news.Article = entity.Article;
+        news.AuthorId = entity.AuthorId;
+        news.UpdateTimestamp = DateTime.Now;
+        
+        await context.SaveChangesAsync();
     }
 }

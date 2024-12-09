@@ -1,10 +1,13 @@
-﻿namespace ECommMarket.Domain.Entities
+﻿
+using ECommMarket.Domain.Interfaces;
+
+namespace ECommMarket.Domain.Entities
 {
-    public class BaseEntity
+    public class BaseEntity<T> : IEntityBase<T>
     {
-        public int Id { get; set; }
-        public DateTime CreationDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public T Id { get; set; }
+        public DateTime Timestamp { get; set; }
+        public DateTime? UpdateTimestamp { get; set; }
         public int UpdateBy { get; set; }
     }
 }
