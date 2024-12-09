@@ -9,4 +9,6 @@ public interface IProductService
     Task<ProductViewModel> AddAsync(ProductViewModel entity);
     Task Delete(int id);
     Task Update(ProductViewModel entity);
+    Task UpdatePhotos(List<PhotoViewModel> photos);
+
 }

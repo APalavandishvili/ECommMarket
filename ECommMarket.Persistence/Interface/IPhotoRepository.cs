@@ -2,6 +2,6 @@
 
 namespace ECommMarket.Persistence.Interface;
 
-public interface IPhotoRepository : IRepository<Photo, int>
+public interface IPhotoRepository : IRepository<Photo>
 {
 }

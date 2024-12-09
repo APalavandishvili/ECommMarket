@@ -2,6 +2,6 @@
 
 namespace ECommMarket.Persistence.Interface;
 
-public interface IOrderRepository : IRepository<Order, int>
+public interface IOrderRepository : IRepository<Order>
 {
 }

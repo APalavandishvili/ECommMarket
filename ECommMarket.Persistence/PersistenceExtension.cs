@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace ECommMarket.Persistence;
 
 public static class PersistenceExtension
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<MarketDbContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<MarketDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 
         return services;
@@ -18,7 +19,7 @@ public static class PersistenceExtension
 
     public static IApplicationBuilder ConfigurePersistence(this IApplicationBuilder app, MarketDbContext db)
     {
-        if (db.Database.IsSqlite())
+        if (db.Database.IsSqlServer())
         {
             db.Database.EnsureCreatedAsync().Wait();
 

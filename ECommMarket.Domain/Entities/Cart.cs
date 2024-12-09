@@ -4,6 +4,5 @@
     {
         public int UserId { get; set; }
         public virtual ICollection<Product>? Products{ get; set; }
-
     }
 }

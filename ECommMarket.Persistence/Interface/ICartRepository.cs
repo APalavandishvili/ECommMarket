@@ -2,6 +2,6 @@
 
 namespace ECommMarket.Persistence.Interface;
 
-public interface ICartRepository : IRepository<Cart, int>
+public interface ICartRepository : IRepository<Cart>
 {
 }
