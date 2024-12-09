@@ -1,4 +1,5 @@
-﻿using EcommMarket.Application.Interfaces;
+﻿using ECommMarket.App.Models;
+using EcommMarket.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommMarket.App.Controllers;
@@ -16,9 +17,21 @@ public class ProductsController : Controller
         return View();
     }
 
-    public async Task<IActionResult> ProductList()
+    public async Task<IActionResult> Index()
     {
         var products = await productService.GetAllAsync();
-        return View(products);
+        var c = products.Select(x => new ProductViewModel()
+        {
+            Description = x.Description,
+            Price = x.Price,
+            ProductName = x.ProductName,
+            Quantity = x.Quantity,
+            Photos = x.Photos!.Select(p => new PhotoViewModel()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList(),
+        }).ToList();
+        return View("./Views/Products/ProductList.cshtml", c);
     }
 }

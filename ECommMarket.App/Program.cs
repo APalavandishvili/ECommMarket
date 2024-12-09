@@ -34,6 +34,10 @@ internal class Program
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
 
+        app.MapControllerRoute(
+            name: "products",
+            pattern: "Products/{action=Index}/{id?}");
+
         app.Run();
     }
 }

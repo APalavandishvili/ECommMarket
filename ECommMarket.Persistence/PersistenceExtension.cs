@@ -1,4 +1,6 @@
 ﻿using ECommMarket.Persistence.Data;
+using ECommMarket.Persistence.Interface;
+using ECommMarket.Persistence.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +14,7 @@ public static class PersistenceExtension
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<MarketDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         return services;
     }

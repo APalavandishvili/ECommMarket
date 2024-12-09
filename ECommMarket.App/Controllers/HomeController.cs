@@ -28,18 +28,6 @@ namespace ECommMarket.App.Controllers
             return View();
         }
 
-        public IActionResult ProductItem()
-        {
-            return View();
-        }
-
-        public IActionResult ProductList()
-        {
-            return View();
-        }
-
-
-
         public IActionResult Privacy()
         {
             return View();

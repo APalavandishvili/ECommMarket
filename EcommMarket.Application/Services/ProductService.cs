@@ -38,8 +38,21 @@ public class ProductService : IProductService
     public async Task<List<ProductViewModel>> GetAllAsync()
     {
         IEnumerable<ECommMarket.Domain.Entities.Product> enumerable = await productRepository.GetAllAsync();
-        var products = enumerable;
-        return [];
+        List<ProductViewModel> products = enumerable.Select(x => new ProductViewModel()
+        {
+            Id = x.Id,
+            Description = x.Description,
+            ProductName = x.ProductName,
+            Quantity = x.Quantity,
+            Price = x.Price,
+            Photos = x.Photos?.Select(p => new PhotoViewModel()
+            {
+                PhotoName = p.PhotoName,
+                PhotoUrl = p.PhotoUrl,
+            }).ToList(),
+        }).ToList();
+
+        return products;
     }
 
     public async Task<ProductViewModel> GetByIdAsync(int id)

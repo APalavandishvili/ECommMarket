@@ -1,4 +1,4 @@
-﻿namespace EcommMarket.App.Models;
+﻿namespace ECommMarket.App.Models;
 
 public class ProductViewModel
 {
