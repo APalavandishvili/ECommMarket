@@ -237,7 +237,7 @@ img {
 }
 
     .product-price:first-of-type {
-        text-decoration: line-through;
+        /*text-decoration: line-through;*/
         color: var(--blue);
     }
 

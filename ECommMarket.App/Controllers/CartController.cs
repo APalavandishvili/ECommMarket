@@ -2,7 +2,6 @@
 using EcommMarket.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
-using ECommMarket.Domain.Entities;
 using ECommMarket.App.Models;
 
 namespace ECommMarket.App.Controllers;
@@ -17,54 +16,30 @@ public class CartController : Controller
         this.productService = productService;
     }
 
-    public IActionResult AddCartItem(int productId)
+    public IActionResult AddCartItem(int id, bool isProductList)
     {
-        var cartIdentifier = Request.Cookies["cartIdentifier"];
-        if (cartIdentifier == null) 
-        {
-            cartIdentifier = Guid.NewGuid().ToString();
-
-            Response.Cookies.Append("cartIdentifier", cartIdentifier);
-        }
-        
-
-        var cacheEntryOptions = new MemoryCacheEntryOptions()
-               .SetSlidingExpiration(TimeSpan.FromHours(3));
-
-        if (!memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
-        {
-            cacheValue = new List<int>() { productId };
-
-            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
-        }
-        else
-        {
-            cacheValue.Add(productId);
-
-            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
-        }
-        return RedirectToAction("Index", "Products");
+        AddOrUpdateCartList(id);
+        return isProductList ? RedirectToAction("Index", "Products") : RedirectToAction("ProductItem", "Products", new {id = id});
     }
 
-    public void RemoveCartItem(int productId)
+    public IActionResult RemoveCartItem(int id)
     {
         var cacheEntryOptions = new MemoryCacheEntryOptions()
                .SetSlidingExpiration(TimeSpan.FromHours(3));
 
         var cartIdentifier = Request.Cookies["cartIdentifier"];
 
-        if (!memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        if (memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
         {
-            if(cacheValue is not null)
-            {
-                cacheValue.Remove(productId);
+            cacheValue.Remove(id);
 
-                memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
-            }
+            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
         }
+
+        return RedirectToAction("CartItems", "Cart");
     }
 
-    public async Task<IActionResult> GetCartItems()
+    public async Task<IActionResult> CartItems()
     {
         var cacheEntryOptions = new MemoryCacheEntryOptions()
                .SetSlidingExpiration(TimeSpan.FromHours(3));
@@ -93,5 +68,33 @@ public class CartController : Controller
             return RedirectToAction("Product", "Index");
         }
         
+    }
+
+    private void AddOrUpdateCartList(int productId)
+    {
+        var cartIdentifier = Request.Cookies["cartIdentifier"];
+        if (cartIdentifier == null)
+        {
+            cartIdentifier = Guid.NewGuid().ToString();
+
+            Response.Cookies.Append("cartIdentifier", cartIdentifier);
+        }
+
+
+        var cacheEntryOptions = new MemoryCacheEntryOptions()
+               .SetSlidingExpiration(TimeSpan.FromHours(3));
+
+        if (!memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        {
+            cacheValue = new List<int>() { productId };
+
+            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
+        }
+        else
+        {
+            cacheValue.Add(productId);
+
+            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
+        }
     }
 }

@@ -42,7 +42,7 @@ public class PaymentController : Controller
 
             return View("/Views/Payment/Payment.cshtml");
         }
-        return RedirectToAction("GetCartItems", "Cart");
+        return RedirectToAction("CartItems", "Cart");
     }
     public async Task<IActionResult> AddOrder(OrderViewModel model)
     {

@@ -23,7 +23,7 @@
                             <a asp-area="" asp-controller="Products" asp-action="ProductItem" asp-route-id="@product.Id"><img src="@product.Photos!.First().PhotoUrl" alt="product image"></a>
                         </div>
                         <div class="product-btns">
-                            <button type="button" class="btn-cart" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {productId = product.Id})'">
+                            <button type="button" class="btn-cart" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {id = product.Id, isProductList = true})'">
                                 add to cart
                                 <span><i class="fas fa-plus"></i></span>
                             </button>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="product-info">
-                        <a href="#" class="product-name">@product.Description</a>
+                        <a href="#" class="product-name">@product.ProductName</a>
                         <p class="product-price">@product.Price</p>
                     </div>
                 </div>

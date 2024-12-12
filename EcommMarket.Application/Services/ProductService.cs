@@ -4,6 +4,7 @@ using EcommMarket.Application.Dto;
 using ECommMarket.Persistence.Interface;
 using Microsoft.VisualBasic;
 using System.Reflection.Metadata.Ecma335;
+using ECommMarket.Domain.Entities;
 
 namespace EcommMarket.Application.Services;
 
@@ -58,7 +59,8 @@ public class ProductService : IProductService
 
     public async Task<List<ProductDto>> GetAllByIdAsync(List<int> productIds)
     {
-        IEnumerable<ECommMarket.Domain.Entities.Product> enumerable = await productRepository.GetAllByIdAsync(productIds);
+        List<Product> enumerable = await productRepository.GetAllByIdAsync(productIds);
+        var c = mapper.Map<List<Product>, List<ProductDto>>(enumerable);
         List<ProductDto> products = enumerable.Select(x => new ProductDto()
         {
             Id = x.Id,
@@ -79,19 +81,7 @@ public class ProductService : IProductService
     public async Task<ProductDto> GetByIdAsync(int id)
     {
         ECommMarket.Domain.Entities.Product product = await productRepository.GetByIdAsync(id);
-        return new ProductDto()
-        {
-            Id = product.Id,
-            Description = product.Description,
-            ProductName = product.ProductName,
-            Quantity = product.Quantity,
-            Price = product.Price,
-            Photos = product.Photos!.Select(p => new PhotoDto()
-            {
-                PhotoName= p.PhotoName,
-                PhotoUrl = p.PhotoUrl,
-            }).ToList()
-        };
+        return mapper.Map<ProductDto>(product);
     }
 
     public async Task Update(ProductDto entity)
