@@ -30,6 +30,11 @@ public class ProductRepository(MarketDbContext context) : IProductRepository
         return await context.Products.Include(p => p.Photos).ToListAsync();
     }
 
+    public async Task<ICollection<Product>> GetAllByIdAsync(List<int> productIds)
+    {
+        return context.Products.Include(p => p.Photos).Where(x => productIds.Contains(x.Id)).ToList();
+    }
+
     public async Task<Product> GetByIdAsync(int id)
     {
         return await context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);

@@ -1,13 +1,11 @@
 ﻿
 @import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
 
-body, html {
+body {
     font-family: 'FiraGO', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
-    box-sizing: border-box;
+    background-color: white;
 }
 
 * {
@@ -28,10 +26,6 @@ ul {
     width: 80px;
 }
 
-body {
-    background-color: white;
-}
-
 .badge-danger {
     color: #003384;
 }
@@ -48,8 +42,8 @@ body {
 
 .navbar {
     background-color: transparent;
-    transition: 0.3s;
     backdrop-filter: blur(10px);
+    transition: 0.3s;
 }
 
     .navbar:hover {
@@ -75,18 +69,13 @@ body {
     }
 
     .cart-icon:hover .badge {
-        color: cadetblue !important;
+        color: black !important;
     }
 
 /* SHOWCASE CAROUSEL */
-.carousel-inner {
-    position: relative;
-    width: 100%;
-    overflow: hidden; /* Prevents scrolling if the image overflows */
-}
 .c-item {
-    height: 600px;
     width: 100%;
+    height: 600px;
 }
 
 .c-img {
@@ -219,20 +208,7 @@ body {
     text-decoration: line-through;
 }
 
-.pre-btn{
-    border: none;
-    width: 3vw;
-    height: 100%;
-    position: absolute;
-    top: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    cursor: pointer;
-    z-index: 8;
-
-}
+.pre-btn,
 .nxt-btn {
     border: none;
     width: 3vw;
@@ -287,7 +263,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #9e2240;
+    background-color: blue;
 }
 
 .wrapper_text--cont {
@@ -317,7 +293,7 @@ section {
     margin: 32px 0px 0px;
     font-weight: 700;
     border-radius: 50px;
-    background-color: #9e2240;
+    background-color: transparent;
     border: 1px solid white;
     color: white;
     transition: 0.2s;
@@ -592,6 +568,17 @@ img {
 
 
 /* Media Queries */
+
+@media (max-width: 1100px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .wrapper_text--cont {
+        padding: 200px 20px;
+    }
+}
+
 @media screen and (min-width: 992px) {
     .product-items {
         display: grid;
@@ -635,15 +622,5 @@ img {
 
     .product-col-left {
         height: 121.5vh;
-    }
-}
-
-@media (max-width: 1100px) {
-    .wrapper {
-        flex-direction: column;
-    }
-
-    .wrapper_text--cont {
-        padding: 200px 20px;
     }
 }

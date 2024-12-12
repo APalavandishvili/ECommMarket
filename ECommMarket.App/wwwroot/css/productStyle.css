@@ -1,9 +1,10 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap');
+﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
 
 :root {
     --white-light: rgba(255, 255, 255, 0.5);
-    --alice-blue: #f8f9fa;
-    --carribean-green: #40c9a2;
+    --blue: blue;
+    --white: white;
+    --black: black;
     --gray: #ededed;
 }
 
@@ -14,8 +15,70 @@
 }
 
 body {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'FiraGO', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
 }
+
+/* NAVIGATION  ცვლილება 1*/
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.brand-logo {
+    width: 80px;
+}
+
+.badge-danger {
+    color: #003384;
+}
+
+.nav-link {
+    color: #003384;
+    letter-spacing: .5px;
+    transition: 0.1s ease;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 40px;
+}
+
+.navbar {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+    .navbar:hover {
+        background-color: white;
+    }
+
+.nav-link:hover {
+    /* color: cadetblue !important; */
+    color: black !important;
+    font-size: large;
+}
+
+.cart-icon {
+    transition: 0.3s;
+}
+
+    .cart-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-icon .badge {
+        transition: background-color 0.3s;
+    }
+
+    .cart-icon:hover .badge {
+        color: black !important;
+    }
 
 /* Utility stylings */
 img {
@@ -65,6 +128,10 @@ img {
 
 /* product section */
 .product-items {
+    /* ცვლილება 2 */
+    gap: 50px;
+    /* ცვლილება 2 */
+
     display: flex;
     justify-content: center;
 }
@@ -82,13 +149,17 @@ img {
 
 .product {
     width: 375px;
-    margin: 2rem;
+    /* ცვლილება 3 */
+    height: 500px;
+    /* ცვლილება 3 */
+    padding-top: 2rem;
     position: relative;
 }
 
 .product-content {
     background: var(--gray);
     padding: 2rem 0.5rem 2rem 0.5rem;
+    padding-bottom: 10px;
     cursor: pointer;
 }
 
@@ -122,23 +193,28 @@ img {
     transition: all 0.6s ease;
 }
 
+/* ცვლილება 4 */
 .btn-cart {
-    background: black;
-    color: white;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
 }
 
     .btn-cart:hover {
-        background: var(--carribean-green);
+        color: white;
+        background-color: blue;
     }
 
 .btn-buy {
-    background: white;
+    background-color: white;
+    border: 1px solid black;
 }
 
     .btn-buy:hover {
-        background: var(--carribean-green);
-        color: #fff;
+        color: white;
+        background-color: blue;
     }
+/* ცვლილება 4 */
 
 .product-info {
     padding: 2rem;
@@ -162,7 +238,7 @@ img {
 
     .product-price:first-of-type {
         text-decoration: line-through;
-        color: var(--carribean-green);
+        color: var(--blue);
     }
 
 .product-img img {

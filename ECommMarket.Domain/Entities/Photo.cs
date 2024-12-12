@@ -5,5 +5,6 @@
         public string PhotoName { get; set; }
         public string PhotoUrl { get; set; }
         public virtual Product Product { get; set; }
+        public virtual ICollection<News>? News { get; set; }
     }
 }

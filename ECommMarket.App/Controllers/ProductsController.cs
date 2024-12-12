@@ -12,16 +12,12 @@ public class ProductsController : Controller
         this.productService = productService;
     }
 
-    public IActionResult ProductItem()
-    {
-        return View();
-    }
-
     public async Task<IActionResult> Index()
     {
         var products = await productService.GetAllAsync();
-        var c = products.Select(x => new ProductViewModel()
+        var productViewModel = products.Select(x => new ProductViewModel()
         {
+            Id = x.Id,
             Description = x.Description,
             Price = x.Price,
             ProductName = x.ProductName,
@@ -32,6 +28,25 @@ public class ProductsController : Controller
                 PhotoName = p.PhotoName
             }).ToList(),
         }).ToList();
-        return View("./Views/Products/ProductList.cshtml", c);
+        return View("./Views/Products/ProductList.cshtml", productViewModel);
+    }
+
+    public async Task<IActionResult> ProductItem(int id)
+    {
+        var product = await productService.GetByIdAsync(id);
+        var productItemViewModel = new ProductViewModel()
+        {
+            Id = product.Id,
+            Description = product.Description,
+            Price = product.Price,
+            ProductName = product.ProductName,
+            Quantity = product.Quantity,
+            Photos = product.Photos!.Select(p => new PhotoViewModel()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList()
+        };
+        return View("./Views/Products/ProductItem.cshtml", productItemViewModel);
     }
 }

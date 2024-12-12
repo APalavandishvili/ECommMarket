@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EcommMarket.Application.ViewModels;
+using EcommMarket.Application.Dto;
 using ECommMarket.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Product, ProductViewModel>();
-        CreateMap<Photo, PhotoViewModel>();
+        CreateMap<Product, ProductDto>();
+        CreateMap<Photo, PhotoDto>();
     }
 }

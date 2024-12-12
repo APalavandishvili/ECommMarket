@@ -2,6 +2,7 @@ using EcommMarket.Application;
 using ECommMarket.Persistence;
 using Microsoft.EntityFrameworkCore;
 using ECommMarket.Persistence.Data;
+using ECommMarket.Application.Cache;
 
 internal class Program
 {
@@ -14,7 +15,8 @@ internal class Program
         builder.Services.AddPersistence(builder.Configuration);
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddDbContext<MarketDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-        
+        builder.Services.AddSingleton<CartMemoryCache>();
+
         var app = builder.Build();
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
@@ -33,10 +35,6 @@ internal class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        app.MapControllerRoute(
-            name: "products",
-            pattern: "Products/{action=Index}/{id?}");
 
         app.Run();
     }

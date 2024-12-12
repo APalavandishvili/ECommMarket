@@ -1,14 +1,15 @@
-﻿using EcommMarket.Application.ViewModels;
+﻿using EcommMarket.Application.Dto;
 
 namespace EcommMarket.Application.Interfaces;
 
 public interface IProductService
 {
-    Task<List<ProductViewModel>> GetAllAsync();
-    Task<ProductViewModel> GetByIdAsync(int id);
-    Task<ProductViewModel> AddAsync(ProductViewModel entity);
+    Task<List<ProductDto>> GetAllAsync();
+    Task<List<ProductDto>> GetAllByIdAsync(List<int> productIds);
+    Task<ProductDto> GetByIdAsync(int id);
+    Task<ProductDto> AddAsync(ProductDto entity);
     Task Delete(int id);
-    Task Update(ProductViewModel entity);
-    Task UpdatePhotos(List<PhotoViewModel> photos);
+    Task Update(ProductDto entity);
+    Task UpdatePhotos(List<PhotoDto> photos);
 
 }
