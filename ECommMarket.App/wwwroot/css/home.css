@@ -24,14 +24,15 @@ ul {
 
 .brand-logo {
     width: 80px;
+    transition: 0.3s;
 }
 
 .badge-danger {
-    color: #003384;
+    color: black;
 }
 
 .nav-link {
-    color: #003384;
+    color: black;
     letter-spacing: .5px;
     transition: 0.1s ease;
 }
@@ -52,7 +53,7 @@ ul {
 
 .nav-link:hover {
     /* color: cadetblue !important; */
-    color: black !important;
+    color: blue !important;
     font-size: large;
 }
 
@@ -71,6 +72,25 @@ ul {
     .cart-icon:hover .badge {
         color: black !important;
     }
+
+.brand-logo:hover {
+    transform: scale(1.2);
+}
+
+.dropdown-menu {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-item:hover {
+        color: blue;
+    }
+
 
 /* SHOWCASE CAROUSEL */
 .c-item {
@@ -144,7 +164,7 @@ ul {
     background: #fff;
     padding: 5px;
     border-radius: 5px;
-    color: blue;
+    color: black;
     right: 10px;
     top: 10px;
     text-transform: capitalize;
@@ -160,7 +180,8 @@ ul {
     text-transform: capitalize;
     border: none;
     outline: none;
-    background: #fff;
+    color: white;
+    background: black;
     border: 1px solid black;
     border-radius: 5px;
     transition: 0.5s;
@@ -173,8 +194,8 @@ ul {
 }
 
 .card-btn:hover {
-    background: blue;
-    color: #fff;
+    background: white;
+    color: black;
 }
 
 .product-info {
@@ -263,7 +284,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: blue;
+    background-color: black;
 }
 
 .wrapper_text--cont {

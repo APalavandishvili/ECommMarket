@@ -2,7 +2,7 @@
 
 body {
     font-family: 'FiraGO', sans-serif;
-    background-color: #f9f9f9;
+    background-color: white;
     margin-top: 150px;
     padding: 0;
     /* display: flex; */
@@ -10,12 +10,84 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* NAVIGATION */
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.brand-logo {
+    width: 80px;
+    transition: 0.3s;
+}
+
+.badge-danger {
+    color: black;
+}
 
 .nav-link {
-    color: #003384;
+    color: black;
     letter-spacing: .5px;
     transition: 0.1s ease;
 }
+
+.navbar-nav .nav-item {
+    margin-right: 40px;
+}
+
+.navbar {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+    .navbar:hover {
+        background-color: white;
+    }
+
+.nav-link:hover {
+    /* color: cadetblue !important; */
+    color: blue !important;
+    font-size: large;
+}
+
+.cart-icon {
+    transition: 0.3s;
+}
+
+    .cart-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-icon .badge {
+        transition: background-color 0.3s;
+    }
+
+    .cart-icon:hover .badge {
+        color: black !important;
+    }
+
+.brand-logo:hover {
+    transform: scale(1.1);
+}
+
+.dropdown-menu {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-item:hover {
+        color: blue;
+    }
+
 
 .product-detail-page {
     display: flex;
@@ -50,9 +122,10 @@ body {
     }
 
 .main-image img {
-    max-width: 100%;
+    /* max-width: 90%; */
+    width: 100%;
+    height: 450px;
     border-radius: 8px;
-    /* border: 1px solid #ddd; */
 }
 
 .product-details {
@@ -86,9 +159,9 @@ h2 {
 }
 
 .quantity-btn {
-    color: white;
-    background-color: blue;
-    border: none;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 16px;
@@ -102,9 +175,9 @@ h2 {
 }
 
 .add-to-cart-btn {
-    background-color: blue;
-    color: #fff;
-    border: none;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
     padding: 11px 15px;
     border-radius: 4px;
     cursor: pointer;
@@ -113,15 +186,15 @@ h2 {
     transition: 0.2s ease;
 }
 
-.add-to-cart-btn:hover {
-    border: 2px solid black;
-    background-color: white;
-    color: black;
-}
+    .add-to-cart-btn:hover {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+    }
 
 .quantity-btn:hover {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
     border: 1px solid black;
 }
 
