@@ -1,0 +1,157 @@
+﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+
+body {
+    font-family: 'FiraGO', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* NAVIGATION */
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.brand-logo {
+    width: 80px;
+}
+
+.badge-danger {
+    color: #003384;
+}
+
+.nav-link {
+    color: #003384;
+    letter-spacing: .5px;
+    transition: 0.1s ease;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 40px;
+}
+
+.navbar {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+    .navbar:hover {
+        background-color: white;
+    }
+
+.nav-link:hover {
+    color: black !important;
+    font-size: large;
+}
+
+.cart-icon {
+    transition: 0.3s;
+}
+
+    .cart-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-icon .badge {
+        transition: background-color 0.3s;
+    }
+
+    .cart-icon:hover .badge {
+        color: black !important;
+    }
+
+/* NEWS */
+.news-container {
+    margin-top: 150px;
+    margin-left: 240px;
+}
+
+.news-card {
+    display: flex;
+    justify-content: space-between;
+    width: 1300px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background-color: #fff;
+}
+
+.news-content {
+    margin-top: 20px;
+    flex: 3;
+}
+
+.news-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 0 8px;
+}
+
+.news-description {
+    font-size: 0.95em;
+    margin: 0 0 16px;
+    color: #555;
+}
+
+.news-meta {
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.news-thumbnail {
+    flex: 1;
+    margin-left: 16px;
+}
+
+    .news-thumbnail img:hover {
+        transform: scale(1.1);
+    }
+
+    .news-thumbnail img {
+        transition: 0.3s ease;
+        width: 200px;
+        height: auto;
+        border-radius: 4px;
+    }
+
+.read-more {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 8px;
+    font-size: 0.9em;
+    width: 100px;
+    font-weight: bold;
+    color: #fff;
+    background-color: blue;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.read-more-a {
+    width: 100px;
+}
+
+.read-more:hover {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}

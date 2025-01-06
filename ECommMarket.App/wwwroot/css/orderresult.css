@@ -1,0 +1,160 @@
+﻿
+@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+
+body {
+    font-family: 'FiraGO', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* NAVIGATION */
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.brand-logo {
+    width: 80px;
+}
+
+.badge-danger {
+    color: #003384;
+}
+
+.nav-link {
+    color: #003384;
+    letter-spacing: .5px;
+    transition: 0.1s ease;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 40px;
+}
+
+.navbar {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+    .navbar:hover {
+        background-color: white;
+    }
+
+.nav-link:hover {
+    /* color: cadetblue !important; */
+    color: black !important;
+    font-size: large;
+}
+
+.cart-icon {
+    transition: 0.3s;
+}
+
+    .cart-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-icon .badge {
+        transition: background-color 0.3s;
+    }
+
+    .cart-icon:hover .badge {
+        color: black !important;
+    }
+
+/* ORDER DETAILS */
+.order-page {
+    max-width: 1800px;
+    margin: 20px auto;
+    padding: 100px;
+    background: #fff;
+}
+
+.overview, .payment-details, .order-details, .next-steps {
+    margin-bottom: 20px;
+}
+
+h2 {
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.note {
+    font-style: italic;
+    /* color: #555; */
+    color: darkgrey;
+}
+
+
+.order-details {
+    max-width: 1800px;
+    margin: 40px auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+    .order-details h2 {
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        color: black;
+        padding-bottom: 5px;
+    }
+
+.details-table {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.item, .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+    .item:last-child, .row:last-child {
+        border-bottom: none;
+    }
+
+    .item .label, .row .label {
+        font-size: 1em;
+        color: #555;
+    }
+
+    .item .value, .row .value {
+        font-size: 1em;
+        font-weight: bold;
+        text-align: right;
+        color: #333;
+    }
+
+    .row.total {
+        border-top: 1px solid black;
+        padding-top: 15px;
+        font-size: 1.2em;
+        color: #000;
+    }
+
+h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+    padding-bottom: 5px;
+}
