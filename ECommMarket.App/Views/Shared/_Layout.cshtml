@@ -23,8 +23,22 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navmenu">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Products" asp-action="Index">პროდუქცია</a>
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle"
+                                id="categoriesDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >
+                                პროდუქცია
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                                <li><a href="" class="dropdown-item">ფეხსაცმელი</a></li>
+                                <li><a href="" class="dropdown-item">ტანსაცმელი</a></li>
+                                <li><a href="" class="dropdown-item">ქუდები</a></li>
+                                <li><a href="" class="dropdown-item">აქსესუარები</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index">ყველა</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">
@@ -49,8 +63,7 @@
                     </ul>
                 </div>
                 <a class="nav-link cart-icon" asp-area="" asp-controller="Cart" asp-action="CartItems">
-                    <i class="fas fa-cart-shopping" style="color: #003384; scale: 150%;"></i>
-                    <span class="badge badge-danger">(0)</span>
+                    <i class="fas fa-cart-shopping" style="color: #000000; scale: 150%;"></i>
                 </a>
             </div>
         </nav>
