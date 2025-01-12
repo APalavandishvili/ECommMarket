@@ -19,19 +19,22 @@
         <div class="product-items">
             <div class="product">
                 <div class="product-content">
-                    <div class="product-img">
-                        <a href="admin-product-edit.html"><img src="img/sneaker-1.png" alt="product image"></a>
-                    </div>
-                    <div class="product-btns">
-                        <a href="admin-product-edit.html" class="btn-cart">
-                            რედაქტირება
-                            <span><i class="fas fa-edit"></i></span>
-                        </a>
-                        <button type="button" class="btn-buy">
-                            წაშლა
-                            <span><i class="fas fa-trash"></i></span>
-                        </button>
-                    </div>
+                    @foreach (ProductViewModel product in Model)
+                    {
+                        <div class="product-img">
+                            <a><img src=@product.Photos.First().PhotoUrl alt="product image"></a>
+                        </div>
+                        <div class="product-btns">
+                            <a asp-controller ="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn-cart">
+                                რედაქტირება
+                                <span><i class="fas fa-edit"></i></span>
+                            </a>
+                            <button asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" type="button" class="btn-buy">
+                                წაშლა
+                                <span><i class="fas fa-trash"></i></span>
+                            </button>
+                        </div>
+                    }
                 </div>
                 <div class="product-info">
                     <a href="#" class="product-name">mens shoes DN 23XX, new product</a>

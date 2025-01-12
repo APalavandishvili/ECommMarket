@@ -1,6 +1,8 @@
 ﻿using ECommMarket.App.Models;
 using EcommMarket.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using EcommMarket.Application.Dto;
+using ECommMarket.Domain.Entities;
 
 namespace ECommMarket.App.Controllers;
 
@@ -48,5 +50,32 @@ public class ProductsController : Controller
             }).ToList()
         };
         return View("./Views/Products/ProductItem.cshtml", productItemViewModel);
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var product = await productService.GetByIdAsync(id);
+        await productService.Update(new EcommMarket.Application.Dto.ProductDto()
+        {
+            Id = product.Id,
+            Description = product.Description,
+            Price = product.Price,
+            ProductName = product.ProductName,
+            Quantity = product.Quantity,
+            Photos = product.Photos!.Select(p => new PhotoDto()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList()
+        });
+
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        await productService.Delete(id);
+        
+        return RedirectToAction("Index");
     }
 }
