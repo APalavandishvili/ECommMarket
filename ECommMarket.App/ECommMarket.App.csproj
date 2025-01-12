@@ -23,11 +23,4 @@
     <ProjectReference Include="..\EcommMarket.Application\EcommMarket.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Cms\Categories\" />
-    <Folder Include="Views\Cms\Orders\" />
-    <Folder Include="Views\Cms\News\" />
-    <Folder Include="Views\Cms\Products\" />
-  </ItemGroup>
-
 </Project>

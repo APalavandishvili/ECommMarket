@@ -1,0 +1,112 @@
+﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+
+body {
+    font-family: 'FiraGO', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: black;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    background: #fff;
+    padding: 2em;
+    margin-top: 1em;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+    border-radius: 8px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.8em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+    }
+
+        .form-group input[type="file"] {
+            padding: 0;
+        }
+
+textarea {
+    resize: vertical;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.image-container:hover .delete-button {
+    display: block;
+}
+
+.delete-button:hover {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 0.8em 1.2em;
+    font-size: 1em;
+    text-decoration: none;
+    color: black;
+    background: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+    .btn:hover {
+        background: black;
+        color: white;
+        border: 1px solid black;
+    }
+
+.btn-secondary {
+    background: white;
+    color: black;
+    transition: 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background: black;
+        color: white;
+    }
