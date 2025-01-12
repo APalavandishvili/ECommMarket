@@ -13,6 +13,7 @@ public static class ApplicationExtension
     {
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<INewsService, NewsService>();
         services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
         return services;
     }

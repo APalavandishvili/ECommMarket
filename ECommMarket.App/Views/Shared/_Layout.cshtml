@@ -14,7 +14,7 @@
     <header class="header">
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
-                <a class="navbar-brand"> <img src="/images/logo/BrandLogo.jpg" alt="" class="brand-logo"></a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"> <img src="/images/logo/BrandLogo.jpg" alt="" class="brand-logo"></a>
                 <button class="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -37,7 +37,7 @@
                                 <li><a href="" class="dropdown-item">ტანსაცმელი</a></li>
                                 <li><a href="" class="dropdown-item">ქუდები</a></li>
                                 <li><a href="" class="dropdown-item">აქსესუარები</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Index">ყველა</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index">ყველა</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -51,8 +51,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
-                                დახმარება
+                            <a class="nav-link" asp-controller="News" asp-action="Index">
+                                სიახლეები
                             </a>
                         </li>
                         <li class="nav-item">

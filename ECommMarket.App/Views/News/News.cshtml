@@ -1,4 +1,6 @@
-﻿<head>
+﻿@model IEnumerable<ECommMarket.App.Models.NewsViewModel>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -6,74 +8,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;900&display=swap">
     <link rel="stylesheet" href="/css/news.css">
     <title>Document</title>
+    <link rel="icon" href="/images/BrandLogo.jpg">
 </head>
 <main class="news-container">
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
+    @if(Model.Count() == 0)
+    {
+        <h1>სიახლეები არ მოიძებნა</h1>
+    }
+    else{
+        @foreach (NewsViewModel news in Model)
+        {
+            <div class="news-card">
+                <div class="news-content">
+                    <h3 class="news-title">@news.Title</h3>
+                    <p class="news-description">@news.Details</p>
+                    <div class="news-meta">
+                        <div class="news-meta-info">
+                            <span>@news.Timestamp</span>
+                        </div>
+                        <a class="read-more-a" asp-area="" asp-controller="News" asp-action="NewsItem" asp-route-id="@news.Id"><button class="read-more">Read More</button></a>
+                    </div>
                 </div>
-                <a href="single-news.html" class="read-more-a"><button class="read-more">Read More</button></a>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
+                <div class="news-thumbnail">
+                    <a asp-area="" asp-controller="News" asp-action="NewsItem" asp-route-id="@news.Id"><img src="images/products/shoe-1.png" alt="Thumbnail Image"></a>
                 </div>
-                <a href="single-news.html" class="read-more-a"><button class="read-more">Read More</button></a>
             </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
-                </div>
-                <a href="single-news.html" class="read-more-a"><button class="read-more">Read More</button></a>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
-                </div>
-                <a href="single-news.html" class="read-more-a"><button class="read-more">Read More</button></a>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
+        }
+    }
+    
+
 </main>
