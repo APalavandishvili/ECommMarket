@@ -1,4 +1,6 @@
-﻿<head>
+﻿@model ECommMarket.App.Models.NewsViewModel
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -9,23 +11,13 @@
 </head>
 <main class="news-article">
     <article class="news-content">
-        <h2>The Most Expensive Data Science Mistake I've Witnessed in My Career</h2>
-        <p class="subheading">Why true success in machine learning goes beyond optimizing a single metric</p>
-        <p class="author">10/11/2023</p>
-        <img src="img/shoe-1.png" alt="Credit Report" class="article-image">
+        <h2>@Model.Title</h2>
+        <p class="subheading">@Model.Details</p>
+        <p class="author">@Model.Timestamp.ToShortDateString()</p>
+        <img src="/images/products/shoe-1.png" class="article-image">
         <div class="news-story">
             <p>
-                "The new credit model didn’t perform as expected," he said.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quae labore quia repellat ea velit, quos magni ut reiciendis?
-                Enim incidunt perspiciatis omnis voluptatibus ullam!
-                "The new credit model didn’t perform as expected," he said.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quae labore quia repellat ea velit, quos magni ut reiciendis? Enim incidunt perspiciatis omnis voluptatibus ullam!
-                "The new credit model didn’t perform as expected," he said.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quae labore quia repellat ea velit, quos magni ut reiciendis? Enim incidunt perspiciatis omnis voluptatibus ullam!
-                "The new credit model didn’t perform as expected," he said.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quae labore quia repellat ea velit, quos magni ut reiciendis? Enim incidunt perspiciatis omnis voluptatibus ullam!
-                "The new credit model didn’t perform as expected," he said.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quae labore quia repellat ea velit, quos magni ut reiciendis? Enim incidunt perspiciatis omnis voluptatibus ullam!
+                @Model.Article
             </p>
         </div>
     </article>

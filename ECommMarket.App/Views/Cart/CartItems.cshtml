@@ -31,14 +31,14 @@
                             <img src="@product.Photos?.First().PhotoUrl" alt="Product 1">
                             <span>@product.ProductName</span>
                         </td>
-                        <td>@product.Price₾</td>
+                        <td>₾@product.Price</td>
                         <td>
                             <input type="number" value="1" min="1" class="cart-quantity">
                         </td>
                         @{
                             decimal Sum = product.Price * product.Quantity;
                         }
-                        <td class="cart-total">@Sum₾</td>
+                        <td class="cart-total">₾@Sum</td>
                         <td>
                             <button class="remove-btn" onclick="location.href='@Url.Action("RemoveCartItem", "Cart", new {id = product.Id})'">&times;</button>
                         </td>
