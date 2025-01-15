@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace ECommMarket.App.Controllers;
 
+[Route("[controller]")]
 public class PaymentController : Controller
 {
     private readonly IMemoryCache memoryCache;

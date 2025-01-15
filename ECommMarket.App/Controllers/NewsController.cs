@@ -25,6 +25,20 @@ public class NewsController : Controller
         return View("./Views/News/News.cshtml", newsViewModel);
     }
 
+    public async Task<IActionResult> CmsIndex()
+    {
+        var news = await newsService.GetAllAsync();
+        var newsViewModel = news.Select(x => new NewsViewModel()
+        {
+            Id = x.Id,
+            Title = x.Title,
+            Article = x.Article,
+            Details = x.Details,
+            Timestamp = x.Timestamp,
+        }).ToList();
+        return View("./Views/Cms/News/NewsList.cshtml", newsViewModel);
+    }
+
     public async Task<IActionResult> NewsItem(int id)
     {
         var news = await newsService.GetByIdAsync(id);

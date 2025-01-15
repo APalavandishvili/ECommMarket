@@ -1,4 +1,9 @@
-﻿<head>
+﻿@{
+    Layout = null;
+}
+@model ECommMarket.App.Models.LoginViewModel
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/login.css">
@@ -7,7 +12,24 @@
 </head>
 <div class="login-container">
     <h1>Sign In</h1>
-    <form action="home.html" method="get">
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+        <label for="username">Username </label>
+        @Html.TextBoxFor(model => model.Username, new { id = "name" })
+        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+        <label for="password">Password </label>
+        @Html.TextBoxFor(model => model.Password, new { id = "name" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <button class="login-button" style="font-family: 'FiraGO', sans-serif;">Sign In</button>
+    }
+
+    @* <form method="get">
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
@@ -19,5 +41,5 @@
         <button class="login-button" style="font-family: 'FiraGO', sans-serif;">
             Sign In
         </button>
-    </form>
+    </form> *@
 </div>

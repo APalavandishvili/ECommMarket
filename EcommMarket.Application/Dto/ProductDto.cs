@@ -8,4 +8,5 @@ public class ProductDto
     public decimal Price { get; set; }
     public string Description { get; set; }
     public virtual List<PhotoDto>? Photos { get; set; }
+    public int Category { get; set; }
 }

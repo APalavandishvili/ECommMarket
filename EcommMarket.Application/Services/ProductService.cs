@@ -11,15 +11,19 @@ namespace EcommMarket.Application.Services;
 public class ProductService : IProductService
 {
     private readonly IProductRepository productRepository;
+    private readonly ICategoryRepository categoryRepository;
     private readonly IMapper mapper;
-    public ProductService(IProductRepository productRepository, IMapper mapper)
+    public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper)
     {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
         this.mapper = mapper;
     }
 
     public async Task<ProductDto> AddAsync(ProductDto entity)
     {
+        var category = await categoryRepository.GetByIdAsync(entity.Category);
+
         await productRepository.AddAsync(new()
         {
             Description = entity.Description,
@@ -27,6 +31,12 @@ public class ProductService : IProductService
             ProductName = entity.ProductName,
             Quantity = entity.Quantity,
             Timestamp = DateTime.Now,
+            Photos = entity.Photos!.Select(p => new Photo()
+            {
+                PhotoName = p.PhotoName,
+                PhotoUrl = p.PhotoUrl,
+            }).ToList(),
+            Category = category
         });
 
         return entity;

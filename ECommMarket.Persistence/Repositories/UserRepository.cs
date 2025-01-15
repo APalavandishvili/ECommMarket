@@ -23,12 +23,12 @@ public class UserRepository(MarketDbContext context) : IUserRepository
 
         var isPasswordCorrect = VerifyPassword(user.Email, HashPassword(request.Email, request.Password));
 
-        if(isPasswordCorrect)
+        if(!isPasswordCorrect)
         {
             return string.Empty;
         }
 
-        var secret = "";
+        var secret = "vxw(}@wEU9'|z]>BlH=qexx-NM62\"6fO&}1Kf_!uH<q)9";
         byte[] byteArray = Encoding.UTF8.GetBytes(secret);
 
         var handler = new JwtSecurityTokenHandler();
@@ -43,7 +43,6 @@ public class UserRepository(MarketDbContext context) : IUserRepository
             Expires = DateTime.UtcNow.AddHours(1),
             Subject = GenerateClaims(user)
         };
-
         var token = handler.CreateToken(tokenDescriptor);
 
         return handler.WriteToken(token);

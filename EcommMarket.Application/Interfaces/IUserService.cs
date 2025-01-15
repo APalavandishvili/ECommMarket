@@ -9,5 +9,5 @@ namespace EcommMarket.Application.Interfaces;
 
 public interface IUserService
 {
-    Task Login(LoginDto request);
+    Task<string> Login(LoginDto request);
 }

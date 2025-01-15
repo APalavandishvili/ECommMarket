@@ -14,6 +14,8 @@ public static class ApplicationExtension
         services.AddScoped<IProductService, ProductService>();
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<INewsService, NewsService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICategoryService, CategoryService>();
         services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
         return services;
     }

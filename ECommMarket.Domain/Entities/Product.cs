@@ -8,5 +8,6 @@
         public string Description { get; set; }
         public virtual ICollection<Photo>? Photos { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

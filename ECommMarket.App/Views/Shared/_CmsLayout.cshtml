@@ -32,12 +32,12 @@
                             პროდუქცია
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                            <li><a href="admin-product-add.html" class="dropdown-item">პროდუქტის დამატება</a></li>
-                            <li><a href="admin-page-products.html" class="dropdown-item">ყველა პროდუქტი</a></li>
+                                <li><a asp-controller="Products" asp-action="AddProducts" class="dropdown-item">პროდუქტის დამატება</a></li>
+                                <li><a asp-controller="Products" asp-action="CmsProducts" class="dropdown-item">ყველა პროდუქტი</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="admin-page-news.html"
+                            <a asp-controller="News" asp-action="CmsIndex"
                            class="nav-link dropdown-toggle"
                            id="newsDropdown"
                            role="button"
@@ -74,13 +74,11 @@
         </div>
     </nav>
 </header>
-<main role="main">
-    @RenderBody()
-</main>
+@RenderBody()
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 @await RenderSectionAsync("Scripts", required: false)
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

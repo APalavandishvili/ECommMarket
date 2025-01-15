@@ -15,7 +15,7 @@
         <div class="thumbnail">
             @foreach (var photo in Model.Photos!)
             {
-                <img src="@photo.PhotoUrl" alt="Thumbnail 1" onclick="@photo.PhotoUrl">
+                <img src="@photo.PhotoUrl" alt="Thumbnail 1" onclick="changeImage('@photo.PhotoUrl')">
             }
         </div>
         <div class="main-image">
