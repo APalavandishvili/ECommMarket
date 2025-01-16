@@ -4,6 +4,7 @@ using ECommMarket.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommMarket.Persistence.Migrations
 {
     [DbContext(typeof(MarketDbContext))]
-    partial class MarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250116093657_removedPhotoNewsRelation")]
+    partial class removedPhotoNewsRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,6 +176,9 @@ namespace ECommMarket.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
@@ -183,6 +189,8 @@ namespace ECommMarket.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -292,21 +300,6 @@ namespace ECommMarket.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NewsPhoto", b =>
-                {
-                    b.Property<int>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PhotosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NewsId", "PhotosId");
-
-                    b.HasIndex("PhotosId");
-
-                    b.ToTable("NewsPhoto");
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.Property<int>("ItemsId")
@@ -322,19 +315,15 @@ namespace ECommMarket.Persistence.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("PhotoProduct", b =>
+            modelBuilder.Entity("ECommMarket.Domain.Entities.Photo", b =>
                 {
-                    b.Property<int>("PhotosId")
-                        .HasColumnType("int");
+                    b.HasOne("ECommMarket.Domain.Entities.Product", "Product")
+                        .WithMany("Photos")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PhotosId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("PhotoProduct");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ECommMarket.Domain.Entities.Product", b =>
@@ -352,21 +341,6 @@ namespace ECommMarket.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("NewsPhoto", b =>
-                {
-                    b.HasOne("ECommMarket.Domain.Entities.News", null)
-                        .WithMany()
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ECommMarket.Domain.Entities.Photo", null)
-                        .WithMany()
-                        .HasForeignKey("PhotosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.HasOne("ECommMarket.Domain.Entities.Product", null)
@@ -382,24 +356,14 @@ namespace ECommMarket.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PhotoProduct", b =>
-                {
-                    b.HasOne("ECommMarket.Domain.Entities.Photo", null)
-                        .WithMany()
-                        .HasForeignKey("PhotosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ECommMarket.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ECommMarket.Domain.Entities.Cart", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ECommMarket.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

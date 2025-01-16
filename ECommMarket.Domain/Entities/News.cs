@@ -6,6 +6,6 @@
         public string? Article { get; set; }
         public string? Details { get; set; }
         public int? AuthorId { get; set; }
-        public virtual ICollection<Photo>? Photo { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }

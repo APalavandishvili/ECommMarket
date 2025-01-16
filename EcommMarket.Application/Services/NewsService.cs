@@ -21,7 +21,13 @@ namespace EcommMarket.Application.Services
                 Article = entity.Article,
                 Details = entity.Details,
                 Timestamp = DateTime.Now,
+                Photos = entity.Photos.Select(x => new Photo()
+                {
+                    PhotoName = x.PhotoName,
+                    PhotoUrl = x.PhotoUrl,
+                }).ToList()
             });
+
             return entity;
         }
 

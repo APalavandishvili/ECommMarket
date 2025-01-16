@@ -1,4 +1,6 @@
-﻿using EcommMarket.Application.Interfaces;
+﻿using EcommMarket.Application.Dto;
+using EcommMarket.Application.Interfaces;
+using ECommMarket.App.Extensions;
 using ECommMarket.App.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,5 +53,29 @@ public class NewsController : Controller
             Timestamp = news.Timestamp,
         };
         return View("./Views/News/NewsItem.cshtml", newsItemViewModel);
+    }
+
+    public async Task<IActionResult> AddNews()
+    {
+        return View("./Views/Cms/News/AddNews.cshtml");
+    }
+
+    public async Task<IActionResult> Add(NewsViewModel model)
+    {
+        var addedPhotos = await PhotoExtension.UploadPhotos([model.Photo]);
+
+        await newsService.AddAsync( new NewsDto()
+        {
+            Title = model.Title,
+            Article = model.Article,
+            Details = model.Details,
+            Timestamp = model.Timestamp,
+            Photos = addedPhotos.Select(addedPhotos => new PhotoDto()
+            {
+                PhotoName = addedPhotos.PhotoName,
+                PhotoUrl = addedPhotos.PhotoUrl,
+            }).ToList(),
+        });
+        return RedirectToAction("CmsIndex");
     }
 }

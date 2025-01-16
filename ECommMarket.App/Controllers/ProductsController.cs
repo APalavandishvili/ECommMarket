@@ -3,6 +3,7 @@ using EcommMarket.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using EcommMarket.Application.Dto;
 using ECommMarket.Domain.Entities;
+using ECommMarket.App.Extensions;
 
 namespace ECommMarket.App.Controllers;
 
@@ -90,7 +91,7 @@ public class ProductsController : Controller
 
     public async Task<IActionResult> Add(ProductViewModel model)
     {
-        var newPhotoList = await UploadPhotos(model.UploadedPhotos);
+        var newPhotoList = await PhotoExtension.UploadPhotos(model.UploadedPhotos);
 
         var productDto = new ProductDto()
         {
@@ -106,40 +107,9 @@ public class ProductsController : Controller
             Category = model.CategoryId
         };
 
-        var product = await productService.AddAsync(productDto);
+        await productService.AddAsync(productDto);
 
         return RedirectToAction("CmsProducts");
-    }
-
-    private static async Task<List<PhotoViewModel>> UploadPhotos(List<IFormFile> photos)
-    {
-        List<PhotoViewModel> newPhotos = new List<PhotoViewModel>();
-
-        foreach (var photo in photos)
-        {
-            if (photo.Length > 0)
-            {
-                // Generate a unique filename for each photo to avoid conflicts
-                var fileName = Path.GetFileName(photo.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", @"images\products", fileName);
-
-                // Ensure the folder exists
-                var directory = Path.GetDirectoryName(path);
-                
-                // Save the file to the server
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await photo.CopyToAsync(fileStream);
-                }
-                newPhotos.Add(new PhotoViewModel()
-                {
-                    PhotoUrl = @"/images/products/" + fileName,
-                    PhotoName = fileName
-                });
-            }
-        }
-
-        return newPhotos;
     }
 
     public async Task<IActionResult> Edit(int id)

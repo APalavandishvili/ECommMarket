@@ -6,7 +6,7 @@
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<Photo>? Photos { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual Category Category { get; set; }
     }

@@ -1,5 +1,6 @@
-﻿@{
-    Layout = "_CmsLayout";
+﻿@model ECommMarket.App.Models.NewsViewModel
+@{
+    Layout = null;
 }
 
 <head>
@@ -13,42 +14,32 @@
     <link rel="icon" href="/images/logo/BrandLogo.jpg">
 </head>
 <main>
-    <form id="edit-product-form" action="/admin/update_product" method="POST" enctype="multipart/form-data">
-        <!-- <input type="hidden" name="product_id" value="123"> -->
+    @using (Html.BeginForm("Add", "News", FormMethod.Post, new { enctype = "multipart/form-data", id = "edit-product-form" }))
+    {
         <div class="form-group">
             <label for="product-name">სიახლის სათაური:</label>
-            <input type="text" id="product-name" name="product_name" required>
+            @Html.TextBoxFor(model => model.Title, new { id = "product-name" })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            <label for="product-name">სიახლის მოკლე აღწერა:</label>
-            <input type="text" id="product-name" name="product_name" required>
+            <label for="product-description">კონტენტი:</label>
+            @Html.TextBoxFor(model => model.Article, new { id = "product-description" })
+            @Html.ValidationMessageFor(model => model.Article, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            <label for="product-description">შინაარსი:</label>
-            <textarea id="product-description" name="product_description" rows="4" required></textarea>
+            <label for="product-price">დეტალები:</label>
+            @Html.TextBoxFor(model => model.Details, new { id = "product-price" })
+            @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            <label for="product-image">Image:</label>
-            <input type="file" id="product-image" name="product_image" accept="image/*">
+            @Html.LabelFor(m => m.Photo, "აირჩიე სურათები")
+            <input type="file" name="Photo" multiple="multiple" />
+            @Html.ValidationMessageFor(m => m.Photo)
         </div>
 
-        <!-- ეს გამოჩნდება როდესაც სურათები დაემატება -->
-        <!-- <div class="form-group">
-            <label>Existing Images:</label>
-            <div class="image-gallery">
-                <div class="image-container">
-                    <img src="img/shoe-1.png" alt="Product Image 1" class="product-image">
-                    <a href="" class="delete-button">Delete</a>
-                </div>
-            </div>
-        </div> -->
-
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="" class="btn btn-secondary">Cancel</a>
-        </div>
-    </form>
+        <button type="submit" class="btn-submit">დამატება</button>
+    }
 </main>

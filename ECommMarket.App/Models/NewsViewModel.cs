@@ -7,5 +7,6 @@ public class NewsViewModel
     public string Article { get; set; }
     public string Details { get; set; }
     public DateTime Timestamp { get; set; }
+    public IFormFile Photo { get; set; }
 
 }

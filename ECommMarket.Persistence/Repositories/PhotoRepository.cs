@@ -27,17 +27,17 @@ public class PhotoRepository(MarketDbContext context) : IPhotoRepository
 
     public async Task<IEnumerable<Photo>> GetAllAsync()
     {
-        return await context.Photos.Include(p => p.Product).ToListAsync();
+        return await context.Photos.Include(p => p.Products).Include(p => p.News).ToListAsync();
     }
 
     public async Task<Photo> GetByIdAsync(int id)
     {
-        return await context.Photos.Include(p => p.Product).FirstOrDefaultAsync(p => p.Id == id);
+        return await context.Photos.Include(p => p.Products).Include(p => p.News).FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task Update(Photo entity)
     {
-        Photo? photo = await context.Photos.Include(p => p.Product).FirstOrDefaultAsync(p => p.Id == entity.Id);
+        Photo? photo = await context.Photos.Include(p => p.Products).Include(p => p.News).FirstOrDefaultAsync(p => p.Id == entity.Id);
         if (photo is null)
         {
             return;
