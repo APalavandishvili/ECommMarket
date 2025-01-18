@@ -1,17 +1,26 @@
 ﻿using ECommMarket.App.Models;
 using EcommMarket.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using EcommMarket.Application.Dto;
+using ECommMarket.Domain.Entities;
+using ECommMarket.App.Extensions;
 
 namespace ECommMarket.App.Controllers;
 
+[Route("Products")]
 public class ProductsController : Controller
 {
     private readonly IProductService productService;
-    public ProductsController(IProductService productService)
+    private readonly IPhotoService photoService;
+    private readonly ICategoryService categoryService;
+    public ProductsController(IProductService productService, IPhotoService photoService, ICategoryService categoryService)
     {
         this.productService = productService;
+        this.categoryService = categoryService;
+        this.photoService = photoService;
     }
 
+    [Route("")]
     public async Task<IActionResult> Index()
     {
         var products = await productService.GetAllAsync();
@@ -31,6 +40,72 @@ public class ProductsController : Controller
         return View("./Views/Products/ProductList.cshtml", productViewModel);
     }
 
+    [Route("Admin")]
+    public async Task<IActionResult> CmsProducts()
+    {
+        var products = await productService.GetAllAsync();
+        
+        var productViewModel = products.Select(x => new ProductViewModel()
+        {
+            Id = x.Id,
+            Description = x.Description,
+            Price = x.Price,
+            ProductName = x.ProductName,
+            Quantity = x.Quantity,
+            Photos = x.Photos!.Select(p => new PhotoViewModel()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList(),
+        }).ToList();
+        return View("./Views/Cms/Products/ProductList.cshtml", productViewModel);
+    }
+
+    [Route("Admin/Add")]
+    public async Task<IActionResult> AddProducts()
+    {
+        var categories = await categoryService.GetAllAsync();
+
+        ViewBag.Categories = categories.Select(x => new CategoryViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToList();
+
+        return View("./Views/Cms/Products/AddProduct.cshtml");
+    }
+
+    [Route("Admin/Products/Edit")]
+    public async Task<IActionResult> EditProducts(int id)
+    {
+        var categories = await categoryService.GetAllAsync();
+        var product = await productService.GetByIdAsync(id);
+        var productItemViewModel = new ProductViewModel()
+        {
+            Id = product.Id,
+            CategoryId = product.Category,
+            Description = product.Description,
+            Price = product.Price,
+            ProductName = product.ProductName,
+            Quantity = product.Quantity,
+            Photos = product.Photos!.Select(p => new PhotoViewModel()
+            {
+                Id = p.Id,
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList()
+        };
+
+        ViewBag.Categories = categories.Select(x => new CategoryViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToList();
+
+        return View("./Views/Cms/Products/EditProduct.cshtml", productItemViewModel);
+    }
+
+    [Route("{id}")]
     public async Task<IActionResult> ProductItem(int id)
     {
         var product = await productService.GetByIdAsync(id);
@@ -48,5 +123,72 @@ public class ProductsController : Controller
             }).ToList()
         };
         return View("./Views/Products/ProductItem.cshtml", productItemViewModel);
+    }
+
+    [Route("Admin/Products/Add")]
+    public async Task<IActionResult> Add(ProductViewModel model)
+    {
+        var newPhotoList = await PhotoExtension.UploadPhotos(model.UploadedPhotos);
+
+        var productDto = new ProductDto()
+        {
+            Description = model.Description,
+            Price = model.Price,
+            ProductName = model.ProductName,
+            Quantity = model.Quantity,
+            Photos = newPhotoList.Select(p => new PhotoDto()
+            {
+                PhotoName = p.PhotoName,
+                PhotoUrl = p.PhotoUrl
+            }).ToList(),
+            Category = model.CategoryId
+        };
+
+        await productService.AddAsync(productDto);
+
+        return RedirectToAction("CmsProducts");
+    }
+
+    [Route("Admin/Edit")]
+    public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel)
+    {
+        var product = await productService.GetByIdAsync(id);
+        var newPhotos = await PhotoExtension.UploadPhotos(productViewModel.UploadedPhotos);
+        await productService.Update(new EcommMarket.Application.Dto.ProductDto()
+        {
+            Id = productViewModel.Id,
+            Description = productViewModel.Description,
+            Price = productViewModel.Price,
+            ProductName = productViewModel.ProductName,
+            Quantity = productViewModel.Quantity,
+            Category = productViewModel.CategoryId,
+            Photos = newPhotos.Select(p => new PhotoDto()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList()
+        });
+
+        return RedirectToAction("CmsProducts");
+    }
+
+    [Route("Admin/Delete")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await productService.Delete(id);
+        
+        return RedirectToAction("CmsProducts");
+    }
+
+    [Route("Admin/Delete/Photo")]
+    public async Task<IActionResult> DeletePhoto(int photoId,int id)
+    {
+        var photo = await photoService.GetById(photoId);
+
+        await PhotoExtension.DeletePhoto(photo.PhotoName);
+
+        await photoService.Delete(photo.Id);
+
+        return RedirectToAction("EditProducts", new { id = id});
     }
 }

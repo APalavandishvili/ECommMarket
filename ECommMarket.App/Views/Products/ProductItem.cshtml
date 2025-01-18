@@ -15,7 +15,7 @@
         <div class="thumbnail">
             @foreach (var photo in Model.Photos!)
             {
-                <img src="@photo.PhotoUrl" alt="Thumbnail 1" onclick="@photo.PhotoUrl">
+                <img src="@photo.PhotoUrl" alt="Thumbnail 1" onclick="changeImage('@photo.PhotoUrl')">
             }
         </div>
         <div class="main-image">
@@ -30,6 +30,8 @@
             <button class="quantity-btn">-</button>
             <span class="quantity-value">1</span>
             <button class="quantity-btn">+</button>
+
+            <input type="hidden" id="quantity-input" value="1" />
         </div>
         <button class="add-to-cart-btn" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {id = Model.Id, isProductList = false})'">კალათაში დამატება</button>
         <p class="categories">კატეგორიები: მამაკაცის ფეხსაცმელი</p>

@@ -47,6 +47,32 @@ namespace ECommMarket.Persistence.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("ECommMarket.Domain.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ECommMarket.Domain.Entities.News", b =>
                 {
                     b.Property<int>("Id")
@@ -58,11 +84,14 @@ namespace ECommMarket.Persistence.Migrations
                     b.Property<string>("Article")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhotosId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
@@ -77,6 +106,8 @@ namespace ECommMarket.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PhotosId");
 
                     b.ToTable("News");
                 });
@@ -147,9 +178,6 @@ namespace ECommMarket.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
@@ -160,8 +188,6 @@ namespace ECommMarket.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Photos");
                 });
@@ -175,6 +201,9 @@ namespace ECommMarket.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -204,7 +233,38 @@ namespace ECommMarket.Persistence.Migrations
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ECommMarket.Domain.Entities.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UpdateBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateTimestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("ECommMarket.Domain.Entities.User", b =>
@@ -215,31 +275,11 @@ namespace ECommMarket.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -257,21 +297,6 @@ namespace ECommMarket.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("NewsPhoto", b =>
-                {
-                    b.Property<int>("NewsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PhotoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NewsId", "PhotoId");
-
-                    b.HasIndex("PhotoId");
-
-                    b.ToTable("NewsPhoto");
-                });
-
             modelBuilder.Entity("OrderProduct", b =>
                 {
                     b.Property<int>("ItemsId")
@@ -287,15 +312,30 @@ namespace ECommMarket.Persistence.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("ECommMarket.Domain.Entities.Photo", b =>
+            modelBuilder.Entity("PhotoProduct", b =>
                 {
-                    b.HasOne("ECommMarket.Domain.Entities.Product", "Product")
-                        .WithMany("Photos")
-                        .HasForeignKey("ProductId")
+                    b.Property<int>("PhotosId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PhotosId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("PhotoProduct");
+                });
+
+            modelBuilder.Entity("ECommMarket.Domain.Entities.News", b =>
+                {
+                    b.HasOne("ECommMarket.Domain.Entities.Photo", "Photos")
+                        .WithMany("News")
+                        .HasForeignKey("PhotosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Photos");
                 });
 
             modelBuilder.Entity("ECommMarket.Domain.Entities.Product", b =>
@@ -303,21 +343,14 @@ namespace ECommMarket.Persistence.Migrations
                     b.HasOne("ECommMarket.Domain.Entities.Cart", null)
                         .WithMany("Products")
                         .HasForeignKey("CartId");
-                });
 
-            modelBuilder.Entity("NewsPhoto", b =>
-                {
-                    b.HasOne("ECommMarket.Domain.Entities.News", null)
+                    b.HasOne("ECommMarket.Domain.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("NewsId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommMarket.Domain.Entities.Photo", null)
-                        .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("OrderProduct", b =>
@@ -335,14 +368,29 @@ namespace ECommMarket.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PhotoProduct", b =>
+                {
+                    b.HasOne("ECommMarket.Domain.Entities.Photo", null)
+                        .WithMany()
+                        .HasForeignKey("PhotosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECommMarket.Domain.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ECommMarket.Domain.Entities.Cart", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ECommMarket.Domain.Entities.Product", b =>
+            modelBuilder.Entity("ECommMarket.Domain.Entities.Photo", b =>
                 {
-                    b.Navigation("Photos");
+                    b.Navigation("News");
                 });
 #pragma warning restore 612, 618
         }

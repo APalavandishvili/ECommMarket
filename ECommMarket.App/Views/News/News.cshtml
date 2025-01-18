@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="news-thumbnail">
-                    <a asp-area="" asp-controller="News" asp-action="NewsItem" asp-route-id="@news.Id"><img src="images/products/shoe-1.png" alt="Thumbnail Image"></a>
+                    <a asp-area="" asp-controller="News" asp-action="NewsItem" asp-route-id="@news.Id"><img src="@news.Photo.PhotoUrl" alt="Thumbnail Image"></a>
                 </div>
             </div>
         }

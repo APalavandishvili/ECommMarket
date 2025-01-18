@@ -6,6 +6,7 @@ using ECommMarket.App.Models;
 
 namespace ECommMarket.App.Controllers;
 
+[Route("Cart")]
 public class CartController : Controller
 {
     private readonly IMemoryCache memoryCache;
@@ -16,12 +17,14 @@ public class CartController : Controller
         this.productService = productService;
     }
 
-    public IActionResult AddCartItem(int id, bool isProductList)
+    [Route("Add")]
+    public IActionResult AddCartItem(int id, int quantity, bool isProductList)
     {
         AddOrUpdateCartList(id);
         return isProductList ? RedirectToAction("Index", "Products") : RedirectToAction("ProductItem", "Products", new {id = id});
     }
 
+    [Route("Remove")]
     public IActionResult RemoveCartItem(int id)
     {
         var cacheEntryOptions = new MemoryCacheEntryOptions()
@@ -39,6 +42,7 @@ public class CartController : Controller
         return RedirectToAction("CartItems", "Cart");
     }
 
+    [Route("Items")]
     public async Task<IActionResult> CartItems()
     {
         var cacheEntryOptions = new MemoryCacheEntryOptions()

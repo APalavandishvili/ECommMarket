@@ -1,0 +1,117 @@
+﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+
+body {
+    font-family: 'FiraGO', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/* NAVIGATION */
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.brand-logo {
+    width: 80px;
+    transition: 0.3s;
+}
+
+.badge-danger {
+    color: black;
+}
+
+.nav-link {
+    color: black;
+    letter-spacing: .5px;
+    transition: 0.1s ease;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 40px;
+}
+
+.navbar {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+    .navbar:hover {
+        background-color: white;
+    }
+
+.nav-link:hover {
+    /* color: cadetblue !important; */
+    color: blue !important;
+    font-size: large;
+}
+
+.cart-icon {
+    transition: 0.3s;
+}
+
+    .cart-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .cart-icon .badge {
+        transition: background-color 0.3s;
+    }
+
+    .cart-icon:hover .badge {
+        color: black !important;
+    }
+
+.brand-logo:hover {
+    transform: scale(1.2);
+}
+
+.dropdown-menu {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .dropdown-item:hover {
+        color: blue;
+    }
+
+/* INFO */
+.main-content {
+    height: 500px;
+    max-width: 800px;
+    margin-top: 100px;
+    padding: 40px;
+    padding-left: 150px;
+}
+
+.styled-text {
+    color: gray;
+    width: 1400px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+    .styled-text span {
+        color: black;
+        font-weight: bold;
+    }
+
+.socials {
+    display: flex;
+    gap: 25px;
+}

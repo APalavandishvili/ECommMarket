@@ -7,4 +7,5 @@ public class NewsDto
     public string Article { get; set; }
     public string Details { get; set; }
     public DateTime Timestamp { get; set; }
+    public PhotoDto Photos { get; set; }
 }

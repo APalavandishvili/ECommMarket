@@ -17,7 +17,7 @@ public class ProductRepository(MarketDbContext context) : IProductRepository
 
     public async Task Delete(int id)
     {
-        var product = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        var product = await context.Products.Include(x => x.Photos).FirstOrDefaultAsync(p => p.Id == id);
         if(product is not null)
         {
             context.Products.Remove(product);
