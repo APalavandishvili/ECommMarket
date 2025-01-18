@@ -7,7 +7,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace ECommMarket.App.Controllers;
 
-[Route("[controller]")]
+[Route("Order")]
 public class PaymentController : Controller
 {
     private readonly IMemoryCache memoryCache;
@@ -20,6 +20,7 @@ public class PaymentController : Controller
         this.memoryCache = memoryCache;
     }
 
+    [Route("")]
     public async Task<IActionResult> Index()
     {
         var cartIdentifier = Request.Cookies["cartIdentifier"];
@@ -45,6 +46,8 @@ public class PaymentController : Controller
         }
         return RedirectToAction("CartItems", "Cart");
     }
+
+    [Route("Add")]
     public async Task<IActionResult> AddOrder(OrderViewModel model)
     {
         var cartIdentifier = Request.Cookies["cartIdentifier"];

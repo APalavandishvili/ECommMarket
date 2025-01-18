@@ -12,9 +12,10 @@ namespace ECommMarket.Persistence.Repositories;
 
 public class CategoryRepository(MarketDbContext context) : ICategoryRepository
 {
-    public Task<int> AddAsync(Category entity)
+    public async Task<int> AddAsync(Category entity)
     {
-        throw new NotImplementedException();
+        await context.Categories.AddAsync(entity);
+        return entity.Id;
     }
 
     public Task Delete(int id)

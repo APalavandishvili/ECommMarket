@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace ECommMarket.App.Controllers;
 
 
-//[Route("[controller]")]
+[Route("Login")]
 public class LoginController : Controller
 {
     private readonly IUserService userService;
@@ -16,6 +16,7 @@ public class LoginController : Controller
         this.userService = userService;
     }
 
+    [Route("")]
     public async Task<IActionResult> Index()
     {
         return View("/Views/Cms/Login.cshtml");

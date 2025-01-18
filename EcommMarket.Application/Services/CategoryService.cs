@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EcommMarket.Application.Dto;
 using EcommMarket.Application.Interfaces;
+using ECommMarket.Domain.Entities;
 using ECommMarket.Persistence.Interface;
 using ECommMarket.Persistence.Repositories;
 
@@ -26,5 +27,13 @@ public class CategoryService : ICategoryService
         }).ToList();
 
         return categories;
+    }
+
+    public async Task<int> AddAsync(CategoryDto category)
+    {
+        return await categoryRepository.AddAsync(new Category()
+        {
+            Name = category.Name
+        });
     }
 }

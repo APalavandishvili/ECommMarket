@@ -33,6 +33,7 @@ public class ProductService : IProductService
             Timestamp = DateTime.Now,
             Photos = entity.Photos!.Select(p => new Photo()
             {
+                Id = p.Id,
                 PhotoName = p.PhotoName,
                 PhotoUrl = p.PhotoUrl,
             }).ToList(),
@@ -59,6 +60,7 @@ public class ProductService : IProductService
             Price = x.Price,
             Photos = x.Photos?.Select(p => new PhotoDto()
             {
+                Id = p.Id,
                 PhotoName = p.PhotoName,
                 PhotoUrl = p.PhotoUrl,
             }).ToList(),
@@ -70,7 +72,6 @@ public class ProductService : IProductService
     public async Task<List<ProductDto>> GetAllByIdAsync(List<int> productIds)
     {
         List<Product> enumerable = await productRepository.GetAllByIdAsync(productIds);
-        var c = mapper.Map<List<Product>, List<ProductDto>>(enumerable);
         List<ProductDto> products = enumerable.Select(x => new ProductDto()
         {
             Id = x.Id,
@@ -80,6 +81,7 @@ public class ProductService : IProductService
             Price = x.Price,
             Photos = x.Photos?.Select(p => new PhotoDto()
             {
+                Id = p.Id,
                 PhotoName = p.PhotoName,
                 PhotoUrl = p.PhotoUrl,
             }).ToList(),
@@ -100,6 +102,7 @@ public class ProductService : IProductService
             Price = product.Price,
             Photos = product.Photos!.Select(p => new PhotoDto()
             {
+                Id = p.Id,
                 PhotoName = p.PhotoName,
                 PhotoUrl = p.PhotoUrl,
             }).ToList()

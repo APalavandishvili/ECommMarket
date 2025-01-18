@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_CmsLayout";
 }
+@model IEnumerable<ECommMarket.App.Models.NewsViewModel>
 
 <head>
     <meta charset="UTF-8">
@@ -13,86 +14,34 @@
     <link rel="icon" href="/images/logo/BrandLogo.jpg">
 </head>
 <main class="news-container">
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
+    @if(Model.Count() == 0)
+    {
+        <h1>სიახლეები არ მოიძებნა</h1>
+    }
+    else{
+        @foreach (NewsViewModel news in Model)
+        {
+            <div class="news-card">
+                <div class="news-content">
+                    <h3 class="news-title">@news.Title</h3>
+                    <p class="news-description">
+                        @news.Article
+                    </p>
+                    <div class="news-meta">
+                        <div class="news-meta-info">
+                            <span>@news.Timestamp.ToShortDateString()</span>
+                        </div>
+                        <div class="buttons">
+                            <a asp-controller="News" asp-action="Edit" asp-route-id="@news.Id" class="edit-a"><button class="read-more">რედაქტირება</button></a>
+                            <a asp-controller="News" asp-action="Delete" asp-route-id="@news.Id" class="delete-a"><button class="read-more">წაშლა</button></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="buttons">
-                    <a href="admin-news-edit.html" class="edit-a"><button class="read-more">რედაქტირება</button></a>
-                    <a href="" class="delete-a"><button class="read-more">წაშლა</button></a>
-                </div>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
-                </div>
-                <div class="buttons">
-                    <a href="admin-news-edit.html" class="edit-a"><button class="read-more">რედაქტირება</button></a>
-                    <a href="" class="delete-a"><button class="read-more">წაშლა</button></a>
+                <div class="news-thumbnail">
+                    <a><img src="@news.Photo.PhotoUrl" alt="Thumbnail Image"></a>
                 </div>
             </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
-                </div>
-                <div class="buttons">
-                    <a href="admin-news-edit.html" class="edit-a"><button class="read-more">რედაქტირება</button></a>
-                    <a href="" class="delete-a"><button class="read-more">წაშლა</button></a>
-                </div>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
-    <div class="news-card">
-        <div class="news-content">
-            <h3 class="news-title">The Mystery Behind Java’s ClassLoaders: Unraveling the Core</h3>
-            <p class="news-description">
-                This article gives you an overview of ClassLoaders in Java—how they are structured, what they do, and how to create a custom...
-            </p>
-            <div class="news-meta">
-                <div class="news-meta-info">
-                    <span>Nov 5, 2023</span>
-                </div>
-                <div class="buttons">
-                    <a href="admin-news-edit.html" class="edit-a"><button class="read-more">რედაქტირება</button></a>
-                    <a href="" class="delete-a"><button class="read-more">წაშლა</button></a>
-                </div>
-            </div>
-        </div>
-        <div class="news-thumbnail">
-            <a href="single-news.html"><img src="img/shoe-1.png" alt="Thumbnail Image"></a>
-        </div>
-    </div>
+        }
+    }
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

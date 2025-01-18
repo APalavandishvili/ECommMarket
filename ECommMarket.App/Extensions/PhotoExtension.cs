@@ -34,4 +34,20 @@ public static class PhotoExtension
 
         return newPhotos;
     }
+
+    internal static async Task DeletePhoto(string fileName)
+    {
+        if (fileName is null)
+        {
+            return;
+        }
+
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+                
+        }
+    }
 }

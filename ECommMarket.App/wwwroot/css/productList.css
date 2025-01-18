@@ -205,6 +205,8 @@ img {
     cursor: pointer;
     border: none;
     transition: all 0.6s ease;
+    text-decoration: none;
+    color: black;
 }
 
 .btn-cart {

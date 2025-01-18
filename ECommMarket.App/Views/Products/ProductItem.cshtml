@@ -30,6 +30,8 @@
             <button class="quantity-btn">-</button>
             <span class="quantity-value">1</span>
             <button class="quantity-btn">+</button>
+
+            <input type="hidden" id="quantity-input" value="1" />
         </div>
         <button class="add-to-cart-btn" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {id = Model.Id, isProductList = false})'">კალათაში დამატება</button>
         <p class="categories">კატეგორიები: მამაკაცის ფეხსაცმელი</p>

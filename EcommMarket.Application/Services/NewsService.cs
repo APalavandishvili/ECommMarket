@@ -21,11 +21,11 @@ namespace EcommMarket.Application.Services
                 Article = entity.Article,
                 Details = entity.Details,
                 Timestamp = DateTime.Now,
-                Photos = entity.Photos.Select(x => new Photo()
+                Photos = new Photo()
                 {
-                    PhotoName = x.PhotoName,
-                    PhotoUrl = x.PhotoUrl,
-                }).ToList()
+                    PhotoName = entity.Photos.PhotoName,
+                    PhotoUrl = entity.Photos.PhotoUrl,
+                }
             });
 
             return entity;
@@ -46,10 +46,16 @@ namespace EcommMarket.Application.Services
                 Article = x.Article,
                 Details = x.Details,
                 Timestamp = x.Timestamp,
+                Photos = new PhotoDto()
+                {
+                    PhotoName = x.Photos.PhotoName,
+                    PhotoUrl = x.Photos.PhotoUrl,
+                }
             }).ToList();
 
             return result;
         }
+
         public async Task<NewsDto> GetByIdAsync(int id)
         {
             News news = await newsRepository.GetByIdAsync(id);
@@ -60,6 +66,11 @@ namespace EcommMarket.Application.Services
                 Article = news.Article,
                 Details = news.Details,
                 Timestamp = news.Timestamp,
+                Photos = new PhotoDto()
+                {
+                    PhotoName = news.Photos.PhotoName,
+                    PhotoUrl = news.Photos.PhotoUrl,
+                }
             };
             return result;
         }
@@ -71,6 +82,11 @@ namespace EcommMarket.Application.Services
             news.Article = entity.Article;
             news.Details = entity.Details;
             news.Timestamp = entity.Timestamp;
+            news.Photos = new Photo()
+            {
+                PhotoName = entity.Photos.PhotoName,
+                PhotoUrl = entity.Photos.PhotoUrl,
+            };
 
             await newsRepository.Update(news);
         }
