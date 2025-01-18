@@ -69,6 +69,35 @@ public class ProductsController : Controller
         return View("./Views/Cms/Products/AddProduct.cshtml");
     }
 
+    public async Task<IActionResult> EditProducts(int id)
+    {
+        var categories = await categoryService.GetAllAsync();
+        var product = await productService.GetByIdAsync(id);
+        var productItemViewModel = new ProductViewModel()
+        {
+            Id = product.Id,
+            CategoryId = product.Category,
+            Description = product.Description,
+            Price = product.Price,
+            ProductName = product.ProductName,
+            Quantity = product.Quantity,
+            Photos = product.Photos!.Select(p => new PhotoViewModel()
+            {
+                PhotoUrl = p.PhotoUrl,
+                PhotoName = p.PhotoName
+            }).ToList()
+        };
+
+        ViewBag.Categories = categories.Select(x => new CategoryViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToList();
+
+        return View("./Views/Cms/Products/EditProduct.cshtml", productItemViewModel);
+    }
+
+
     public async Task<IActionResult> ProductItem(int id)
     {
         var product = await productService.GetByIdAsync(id);
@@ -112,24 +141,26 @@ public class ProductsController : Controller
         return RedirectToAction("CmsProducts");
     }
 
-    public async Task<IActionResult> Edit(int id)
+    public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel)
     {
         var product = await productService.GetByIdAsync(id);
+        var newPhotos = await PhotoExtension.UploadPhotos(productViewModel.UploadedPhotos);
         await productService.Update(new EcommMarket.Application.Dto.ProductDto()
         {
-            Id = product.Id,
-            Description = product.Description,
-            Price = product.Price,
-            ProductName = product.ProductName,
-            Quantity = product.Quantity,
-            Photos = product.Photos!.Select(p => new PhotoDto()
+            Id = productViewModel.Id,
+            Description = productViewModel.Description,
+            Price = productViewModel.Price,
+            ProductName = productViewModel.ProductName,
+            Quantity = productViewModel.Quantity,
+            Category = productViewModel.CategoryId,
+            Photos = newPhotos.Select(p => new PhotoDto()
             {
                 PhotoUrl = p.PhotoUrl,
                 PhotoName = p.PhotoName
             }).ToList()
         });
 
-        return RedirectToAction("Index");
+        return RedirectToAction("CmsProducts");
     }
 
     public async Task<IActionResult> Delete(int id)

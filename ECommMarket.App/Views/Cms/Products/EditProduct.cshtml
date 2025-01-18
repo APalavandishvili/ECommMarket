@@ -1,5 +1,12 @@
-﻿@{
-    Layout = "_CmsLayout";
+﻿@model ECommMarket.App.Models.ProductViewModel
+@{
+    var categories = ViewBag.Categories as List<CategoryViewModel>;
+    var selectListItems = categories.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+    Layout = null;
 }
 
 <head>
@@ -13,61 +20,50 @@
     <link rel="icon" href="/images/logo/BrandLogo.jpg">
 </head>
 <main>
-    <form id="edit-product-form" action="/admin/update_product" method="POST" enctype="multipart/form-data">
-        <!-- <input type="hidden" name="product_id" value="123"> -->
+    @using (Html.BeginForm("Edit", "Products", new { id = @Model.Id }, FormMethod.Post, false, new { enctype = "multipart/form-data", id = "edit-product-form" }))
+    {
         <div class="form-group">
             <label for="product-name">პროდუქტის დასახელება:</label>
-            <input type="text" id="product-name" name="product_name" value="კაცის მაგარი ბოტასი ძაან" required>
+            @Html.TextBoxFor(model => model.ProductName, new { id = "product-name", value=Model.ProductName })
+            @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="product-description">აღწერა:</label>
-            <textarea id="product-description" name="product_description" rows="4" required>მატერია: ნაღდი ადამიანის ტყავი</textarea>
+            @Html.TextBoxFor(model => model.Description, new { id = "product-description", value = Model.Description })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
             <label for="product-price">ფასი:</label>
-            <input id="product-price" name="product_price" value="20.00" required>
+            @Html.TextBoxFor(model => model.Price, new { id = "product-price", value = Model.Price })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
         </div>
 
-        <!-- <div class="form-group">
-            <label for="product-stock">რაოდენობა:</label>
-            <input type="number" id="product-stock" name="product_stock" value="1" required>
-        </div> -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.Photos, "აირჩიე სურათები")
+            <input type="file" name="UploadedPhotos" multiple="multiple" />
+            @Html.ValidationMessageFor(m => m.UploadedPhotos)
+        </div>
 
         <div class="form-group">
             <label for="product-category">კატეგორია:</label>
-            <select id="product-category" name="product_category" required>
-                <option>კატეგორია 1</option>
-                <option>კატეგორია 2</option>
-                <option>კატეგორია 3</option>
-                <option>კატეგორია 4</option>
-                <option>კატეგორია 5</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="product-image">Image:</label>
-            <input type="file" id="product-image" name="product_image" accept="image/*">
+            @Html.DropDownListFor(model => model.CategoryId, selectListItems, "", new { @class = "form-control" })
         </div>
 
         <div class="form-group">
             <label>Existing Images:</label>
             <div class="image-gallery">
-                <div class="image-container">
-                    <img src="img/sneaker-1.png" alt="Product Image 1" class="product-image">
-                    <a href="" class="delete-button">Delete</a>
-                </div>
-                <div class="image-container">
-                    <img src="img/sneaker-2.png" alt="Product Image 2" class="product-image">
-                    <a href="" class="delete-button">Delete</a>
-                </div>
+                @foreach(var photos in Model.Photos)
+                {
+                    <div class="image-container">
+                        <img src=@photos.PhotoUrl alt="Product Image 1" class="product-image">
+                        <a href="" class="delete-button">Delete</a>
+                    </div>
+                }
             </div>
         </div>
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="" class="btn btn-secondary">Cancel</a>
-        </div>
-    </form>
+        <button type="submit" class="btn btn-primary">დამატება</button>
+    }
 </main>

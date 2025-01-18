@@ -7,7 +7,10 @@ public static class PhotoExtension
     internal static async Task<List<PhotoViewModel>> UploadPhotos(List<IFormFile> photos)
     {
         List<PhotoViewModel> newPhotos = [];
-
+        if (photos is null)
+        {
+            return newPhotos;
+        }
         foreach (var photo in photos)
         {
             if (photo.Length > 0)

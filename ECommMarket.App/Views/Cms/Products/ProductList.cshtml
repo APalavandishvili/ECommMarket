@@ -17,15 +17,15 @@
 <div class="products">
     <div class="container">
         <div class="product-items">
-            <div class="product">
-                <div class="product-content">
-                    @foreach (ProductViewModel product in Model)
-                    {
+            @foreach (ProductViewModel product in Model)
+            {
+                <div class="product">
+                    <div class="product-content">
                         <div class="product-img">
                             <a><img src=@product.Photos.First().PhotoUrl alt="product image"></a>
                         </div>
                         <div class="product-btns">
-                            <a asp-controller ="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn-cart">
+                            <a asp-controller="Products" asp-action="EditProducts" asp-route-id="@product.Id" class="btn-cart">
                                 რედაქტირება
                                 <span><i class="fas fa-edit"></i></span>
                             </a>
@@ -34,14 +34,13 @@
                                 <span><i class="fas fa-trash"></i></span>
                             </button>
                         </div>
-                    }
+                    </div>
+                    <div class="product-info">
+                        <a href="#" class="product-name">@product.ProductName</a>
+                        <p class="product-price" style="text-decoration:none;">₾@product.Price</p>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <a href="#" class="product-name">mens shoes DN 23XX, new product</a>
-                    <p class="product-price" id="discount">₾ 150.00</p>
-                    <p class="product-price">₾ 133.00</p>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>

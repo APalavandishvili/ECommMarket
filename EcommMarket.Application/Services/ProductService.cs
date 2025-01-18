@@ -91,17 +91,39 @@ public class ProductService : IProductService
     public async Task<ProductDto> GetByIdAsync(int id)
     {
         ECommMarket.Domain.Entities.Product product = await productRepository.GetByIdAsync(id);
-        return mapper.Map<ProductDto>(product);
+        return new ProductDto()
+        {
+            Id = product.Id,
+            Description = product.Description,
+            ProductName = product.ProductName,
+            Quantity = product.Quantity,
+            Price = product.Price,
+            Photos = product.Photos!.Select(p => new PhotoDto()
+            {
+                PhotoName = p.PhotoName,
+                PhotoUrl = p.PhotoUrl,
+            }).ToList()
+        };
     }
 
     public async Task Update(ProductDto entity)
     {
         ECommMarket.Domain.Entities.Product product = await productRepository.GetByIdAsync(entity.Id);
+        var category = await categoryRepository.GetByIdAsync(entity.Category);
         product.Quantity = entity.Quantity;
         product.Price = entity.Price;
         product.Description = entity.Description;
         product.ProductName = entity.ProductName;
         product.UpdateTimestamp = DateTime.Now;
+        product.Category = category;
+        foreach(var photo in entity.Photos)
+        {
+            product.Photos.Add(new Photo()
+            {
+                PhotoName = photo.PhotoName,
+                PhotoUrl = photo.PhotoUrl
+            });
+        }
 
         await productRepository.Update(product);
     }
