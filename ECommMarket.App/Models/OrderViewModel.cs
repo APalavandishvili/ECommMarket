@@ -4,6 +4,7 @@ namespace ECommMarket.App.Models;
 
 public class OrderViewModel
 {
+    public int Id { get; set; }
     public string TransactionId { get; set; }
 
     [Required(ErrorMessage = "აუცილებელი ველი")]

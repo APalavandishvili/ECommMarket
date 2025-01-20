@@ -17,7 +17,7 @@ public class ProductRepository(MarketDbContext context) : IProductRepository
 
     public async Task Delete(int id)
     {
-        var product = await context.Products.Include(x => x.Photos).FirstOrDefaultAsync(p => p.Id == id);
+        var product = await context.Products.Include(x => x.Category).Include(x => x.Photos).FirstOrDefaultAsync(p => p.Id == id);
         if(product is not null)
         {
             context.Products.Remove(product);
@@ -27,22 +27,22 @@ public class ProductRepository(MarketDbContext context) : IProductRepository
 
     public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return await context.Products.Include(p => p.Photos).ToListAsync();
+        return await context.Products.Include(x => x.Category).Include(p => p.Photos).ToListAsync();
     }
 
     public async Task<List<Product>> GetAllByIdAsync(List<int> productIds)
     {
-        return context.Products.Include(p => p.Photos).Where(x => productIds.Contains(x.Id)).ToList();
+        return context.Products.Include(p => p.Photos).Include(x => x.Category).Where(x => productIds.Contains(x.Id)).ToList();
     }
 
     public async Task<Product> GetByIdAsync(int id)
     {
-        return await context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
+        return await context.Products.Include(x => x.Category).Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task Update(Product entity)
     {
-        var product = await context.Products.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == entity.Id);
+        var product = await context.Products.Include(x => x.Category).Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == entity.Id);
         if(product is null)
         {
             return;
@@ -54,6 +54,7 @@ public class ProductRepository(MarketDbContext context) : IProductRepository
         product.Description = entity.Description;
         product.UpdateTimestamp = DateTime.Now;
         product.ProductName = entity.ProductName;
+        product.Category = entity.Category;
 
         await context.SaveChangesAsync();
     }

@@ -1,6 +1,7 @@
 ﻿using EcommMarket.Application.Interfaces;
 using EcommMarket.Application.Dto;
 using ECommMarket.Persistence.Interface;
+using ECommMarket.Domain.Entities;
 
 namespace EcommMarket.Application.Services;
 
@@ -36,12 +37,38 @@ public class OrderService : IOrderService
 
     public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+        await orderRepository.Delete(id);
     }
 
     public async Task<List<OrderDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var orders = await orderRepository.GetAllAsync();
+
+        return orders.Select(x => new OrderDto()
+        {
+            Id = x.Id,
+            Address = x.Address,
+            City = x.City,
+            Email = x.Email,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            Timestamp = x.Timestamp,
+            PhoneNumber = x.PhoneNumber,
+            TransactionId = x.TransactionId,
+            Products = x.Items.Select(o => new ProductDto()
+            {
+                Id = o.Id,
+                Description = o.Description,
+                Price = o.Price,
+                Quantity = o.Quantity,
+                ProductName = o.ProductName,
+                Photos = o.Photos?.Select(p => new PhotoDto()
+                {
+                    PhotoName = p.PhotoName,
+                    PhotoUrl = p.PhotoUrl,
+                }).ToList(),
+            }).ToList()
+        }).ToList();
     }
 
     public async Task<List<OrderDto>> GetAllByIdAsync(List<int> productIds)
@@ -54,6 +81,7 @@ public class OrderService : IOrderService
         var order = await orderRepository.GetByIdAsync(id);
         return new()
         {
+            Id = order.Id,
             Address = order.Address,
             City = order.City,
             Email = order.Email,
@@ -86,5 +114,10 @@ public class OrderService : IOrderService
     public async Task UpdatePhotos(List<PhotoDto> photos)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<int> GetLastOrderId()
+    {
+        return await orderRepository.GetLastOrderId();
     }
 }

@@ -15,6 +15,7 @@ public class CategoryRepository(MarketDbContext context) : ICategoryRepository
     public async Task<int> AddAsync(Category entity)
     {
         await context.Categories.AddAsync(entity);
+        await context.SaveChangesAsync();
         return entity.Id;
     }
 

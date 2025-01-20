@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_CmsLayout";
 }
+@model OrderViewModel;
 
 <head>
     <meta charset="UTF-8">
@@ -15,53 +16,31 @@
 <div class="order-page">
     <div class="overview">
         <h2>შეძენა</h2>
-        <p>შეკვეთის ნომერი: <strong>2987</strong></p>
-        <p>შეკვეთის თარიღი: <strong>25.11.2024</strong></p>
-        <p>მთლიანი ჯამი: <strong>₾250.00</strong></p>
+        <p>შეკვეთის ნომერი: <strong>@Model.TransactionId</strong></p>
+        <p>შეკვეთის თარიღი: <strong>@Model.Timestamp.ToShortDateString()</strong></p>
+        <p>მთლიანი ჯამი: <strong>₾@Model.Products.Select(x => x.Price).Sum()</strong></p>
         <p>გადახდის მეთოდი: <strong>საბანკო გადარიცხვა</strong></p>
     </div>
     <hr>
-    <!-- <div class="payment-details">
-        <h2>ჩვენი საბანკო დეტალები</h2>
-        <p>ბანკი: <strong>საქართველოს ბანკი</strong></p>
-        <p>ანგარიშის ნომერი: <strong>GE29BG0000000498631310</strong></p>
-
-        <p>ბანკი: <strong>თიბისი ბანკი</strong></p>
-        <p>ანგარიშის ნომერი: <strong>GE29BG0000000498631310</strong></p>
-        <p class="note">გთხოვთ გადარიცხვის დროს მოუთითოთ <strong>შეკვეთის ნომერი</strong>. თქვენი შეკვეთა არ გამოიგზავნება მანამ, სანამ არ მოხდება თანხის ასახვა ჩვენს ანგარიშზე.</p>
-    </div>
-    <hr> -->
     <div class="order-details">
         <h2>შეკვეთის დეტალები</h2>
         <hr>
         <div class="details-table">
+        @foreach (ProductViewModel product in Model.Products)
+        {
             <div class="item">
-                <div class="label">Adapter GB/T to Type 2 (IEC62196) × 1</div>
-                <div class="value">₾220.00</div>
+                <div class="label">@product.ProductName</div>
+                    <div class="value">₾@product.Price</div>
             </div>
-            <div class="item">
-                <div class="label">Charging Cable Type 2 × 2</div>
-                <div class="value">₾400.00</div>
-            </div>
-            <div class="item">
-                <div class="label">Adapter GB/T to Type 2 (IEC62196) × 1</div>
-                <div class="value">₾220.00</div>
-            </div>
+        }
         </div>
-        <div class="item">
-            <div class="label">Charging Cable Type 2 × 2</div>
-            <div class="value">₾400.00</div>
-        </div>
-
         <div class="details-table">
-            <div class="row">
-                <div class="label">მიწოდება:</div>
-                <div class="value">₾10.00</div>
-            </div>
             <div class="row total">
                 <div class="label">მთლიანი ჯამი:</div>
-                <div class="value">₾650.00</div>
+                <div class="value">₾@Model.Products.Select(x => x.Price).Sum()</div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

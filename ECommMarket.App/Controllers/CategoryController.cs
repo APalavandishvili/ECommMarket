@@ -1,41 +1,45 @@
 ﻿using ECommMarket.App.Models;
-using EcommMarket.Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using EcommMarket.Application.Interfaces;
 
 namespace ECommMarket.App.Controllers;
 
+[Route("Category")]
 public class CategoryController : Controller
 {
-    //public async Task<IActionResult> CmsProducts()
-    //{
-    //    var products = await productService.GetAllAsync();
+    private readonly ICategoryService categoryService;
+    public CategoryController(ICategoryService categoryService)
+    {
+        this.categoryService = categoryService;
+    }
 
-    //    var productViewModel = products.Select(x => new ProductViewModel()
-    //    {
-    //        Id = x.Id,
-    //        Description = x.Description,
-    //        Price = x.Price,
-    //        ProductName = x.ProductName,
-    //        Quantity = x.Quantity,
-    //        Photos = x.Photos!.Select(p => new PhotoViewModel()
-    //        {
-    //            PhotoUrl = p.PhotoUrl,
-    //            PhotoName = p.PhotoName
-    //        }).ToList(),
-    //    }).ToList();
-    //    return View("./Views/Cms/Products/ProductList.cshtml", productViewModel);
-    //}
+    [Route("Admin")]
+    public async Task<IActionResult> CmsCategories()
+    {
+        var categories = await categoryService.GetAllAsync();
+        var model = categories.Select(x => new CategoryViewModel()
+        {
+            Id = x.Id,
+            Name = x.Name
+        }).ToList();
 
-    //public async Task<IActionResult> AddProducts()
-    //{
-    //    var categories = await categoryService.GetAllAsync();
+        return View("./Views/Cms/Categories/CategoryList.cshtml", model);
+    }
 
-    //    ViewBag.Categories = categories.Select(x => new CategoryViewModel()
-    //    {
-    //        Id = x.Id,
-    //        Name = x.Name
-    //    }).ToList();
+    [Route("Admin/Add")]
+    public async Task<IActionResult> Add()
+    {
+        return View("./Views/Cms/Categories/AddCategory.cshtml");
+    }
 
-    //    return View("./Views/Cms/Products/AddProduct.cshtml");
-    //}
+    [Route("Admin/Categories/Add")]
+    public async Task<IActionResult> AddCategory(CategoryViewModel model)
+    {
+        await categoryService.AddAsync(new EcommMarket.Application.Dto.CategoryDto()
+        {
+            Name = model.Name,
+        });
+
+        return RedirectToAction("CmsCategories");
+    }
 }

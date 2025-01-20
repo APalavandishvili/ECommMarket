@@ -48,7 +48,7 @@
 
         <div class="form-group">
             <label for="product-category">კატეგორია:</label>
-            @Html.DropDownListFor(model => model.CategoryId, selectListItems, "Select an option", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.Category.Id, selectListItems, "Select an option", new { @class = "form-control" })
         </div>
 
         <button type="submit" class="btn btn-primary">დამატება</button>

@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_CmsLayout";
 }
+@model IEnumerable<CategoryViewModel>
 
 <head>
     <meta charset="UTF-8">
@@ -13,40 +14,12 @@
     <link rel="icon" href="/images/logo/BrandLogo.jpg">
 </head>
 <div class="categories">
-    <div class="category">
-        <span class="category-span">კატეგორია 1</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 2</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 3</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 4</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 5</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 6</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 7</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 8</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
-    <div class="category">
-        <span class="category-span">კატეგორია 9</span>
-        <button class="delete-button">წაშლა</button>
-    </div>
+    @foreach (CategoryViewModel category in Model)
+    {
+        <div class="category">
+            <span class="category-span">@category.Name</span>
+        </div>
+    }
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

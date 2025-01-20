@@ -4,6 +4,7 @@ namespace EcommMarket.Application.Dto;
 
 public class OrderDto
 {
+    public int Id { get; set; }
     public string TransactionId { get; set; }
 
     public string FirstName { get; set; }

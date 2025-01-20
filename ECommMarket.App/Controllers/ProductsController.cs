@@ -83,7 +83,7 @@ public class ProductsController : Controller
         var productItemViewModel = new ProductViewModel()
         {
             Id = product.Id,
-            CategoryId = product.Category,
+            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
             Description = product.Description,
             Price = product.Price,
             ProductName = product.ProductName,
@@ -116,6 +116,7 @@ public class ProductsController : Controller
             Price = product.Price,
             ProductName = product.ProductName,
             Quantity = product.Quantity,
+            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
             Photos = product.Photos!.Select(p => new PhotoViewModel()
             {
                 PhotoUrl = p.PhotoUrl,
@@ -141,7 +142,7 @@ public class ProductsController : Controller
                 PhotoName = p.PhotoName,
                 PhotoUrl = p.PhotoUrl
             }).ToList(),
-            Category = model.CategoryId
+            Category = new() { Id = model.Category.Id, Name = model.Category.Name },
         };
 
         await productService.AddAsync(productDto);
@@ -154,14 +155,14 @@ public class ProductsController : Controller
     {
         var product = await productService.GetByIdAsync(id);
         var newPhotos = await PhotoExtension.UploadPhotos(productViewModel.UploadedPhotos);
-        await productService.Update(new EcommMarket.Application.Dto.ProductDto()
+        await productService.Update(new ProductDto()
         {
             Id = productViewModel.Id,
             Description = productViewModel.Description,
             Price = productViewModel.Price,
             ProductName = productViewModel.ProductName,
             Quantity = productViewModel.Quantity,
-            Category = productViewModel.CategoryId,
+            Category = new() { Id = productViewModel.Category.Id, Name = productViewModel.Category.Name },
             Photos = newPhotos.Select(p => new PhotoDto()
             {
                 PhotoUrl = p.PhotoUrl,

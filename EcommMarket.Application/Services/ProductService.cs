@@ -22,7 +22,7 @@ public class ProductService : IProductService
 
     public async Task<ProductDto> AddAsync(ProductDto entity)
     {
-        var category = await categoryRepository.GetByIdAsync(entity.Category);
+        var category = await categoryRepository.GetByIdAsync(entity.Category.Id);
 
         await productRepository.AddAsync(new()
         {
@@ -50,7 +50,7 @@ public class ProductService : IProductService
 
     public async Task<List<ProductDto>> GetAllAsync()
     {
-        IEnumerable<ECommMarket.Domain.Entities.Product> enumerable = await productRepository.GetAllAsync();
+        IEnumerable<Product> enumerable = await productRepository.GetAllAsync();
         List<ProductDto> products = enumerable.Select(x => new ProductDto()
         {
             Id = x.Id,
@@ -58,6 +58,7 @@ public class ProductService : IProductService
             ProductName = x.ProductName,
             Quantity = x.Quantity,
             Price = x.Price,
+            Category = new() { Id = x.Category.Id, Name = x.Category.Name },
             Photos = x.Photos?.Select(p => new PhotoDto()
             {
                 Id = p.Id,
@@ -79,6 +80,7 @@ public class ProductService : IProductService
             ProductName = x.ProductName,
             Quantity = x.Quantity,
             Price = x.Price,
+            Category = new() { Id = x.Category.Id, Name = x.Category.Name },
             Photos = x.Photos?.Select(p => new PhotoDto()
             {
                 Id = p.Id,
@@ -100,6 +102,7 @@ public class ProductService : IProductService
             ProductName = product.ProductName,
             Quantity = product.Quantity,
             Price = product.Price,
+            Category = new() { Id = product.Category.Id, Name = product.Category.Name },
             Photos = product.Photos!.Select(p => new PhotoDto()
             {
                 Id = p.Id,
@@ -111,8 +114,9 @@ public class ProductService : IProductService
 
     public async Task Update(ProductDto entity)
     {
-        ECommMarket.Domain.Entities.Product product = await productRepository.GetByIdAsync(entity.Id);
-        var category = await categoryRepository.GetByIdAsync(entity.Category);
+        Product product = await productRepository.GetByIdAsync(entity.Id);
+        var category = await categoryRepository.GetByIdAsync(entity.Category.Id);
+
         product.Quantity = entity.Quantity;
         product.Price = entity.Price;
         product.Description = entity.Description;

@@ -11,4 +11,5 @@ public interface IOrderService
     Task Delete(int id);
     Task Update(OrderDto entity);
     Task UpdatePhotos(List<PhotoDto> photos);
+    Task<int> GetLastOrderId();
 }

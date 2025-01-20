@@ -55,6 +55,8 @@ public class PaymentController : Controller
         if (memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
         {
             List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue);
+            var lastOrder = await orderService.GetLastOrderId();
+            lastOrder++;
 
             var orderDto = new OrderDto()
             {
@@ -64,7 +66,7 @@ public class PaymentController : Controller
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
-                TransactionId = Guid.NewGuid().ToString(),
+                TransactionId = lastOrder.ToString(),
                 //Products = model.Products.Select(o => new ProductDto()
                 //{
                 //    Id = o.Id,

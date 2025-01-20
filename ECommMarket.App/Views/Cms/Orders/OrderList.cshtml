@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_CmsLayout";
 }
+@model IEnumerable<OrderViewModel>
 
 <head>
     <meta charset="UTF-8">
@@ -23,65 +24,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>#1001</td>
-            <td>John Doe</td>
-            <td>2024-12-25</td>
-            <td>₾120.50</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>#1002</td>
-            <td>Jane Smith</td>
-            <td>2024-12-24</td>
-            <td>₾85.00</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>#1003</td>
-            <td>Emily Johnson</td>
-            <td>2024-12-23</td>
-            <td>₾45.75</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>#1004</td>
-            <td>Michael Brown</td>
-            <td>2024-12-22</td>
-            <td>₾65.00</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>#1001</td>
-            <td>John Doe</td>
-            <td>2024-12-25</td>
-            <td>₾120.50</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
-        <tr>
-            <td>#1002</td>
-            <td>Jane Smith</td>
-            <td>2024-12-24</td>
-            <td>₾85.00</td>
-            <td>
-                <a href="admin-orders-view.html"><button class="view-details">სრულად ნახვა</button></a>
-                <a href=""><button class="delete-order">წაშლა</button></a>
-            </td>
-        </tr>
+        @foreach (OrderViewModel order in Model)
+        {
+            <tr>
+                <td>@order.TransactionId</td>
+                <td>@order.FirstName @order.LastName</td>
+                <td>@order.Timestamp.ToShortDateString()</td>
+                <td>₾@order.Products.Select(x => x.Price).Sum()</td>
+                <td>
+                    <a asp-controller="Order" asp-action="GetById" asp-route-id="@order.Id"><button class="view-details">სრულად ნახვა</button></a>
+                    <a asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id"><button class="delete-order">წაშლა</button></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

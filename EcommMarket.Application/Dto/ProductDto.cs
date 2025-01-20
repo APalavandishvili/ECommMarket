@@ -1,4 +1,6 @@
-﻿namespace EcommMarket.Application.Dto;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+
+namespace EcommMarket.Application.Dto;
 
 public class ProductDto
 {
@@ -8,5 +10,5 @@ public class ProductDto
     public decimal Price { get; set; }
     public string Description { get; set; }
     public virtual List<PhotoDto>? Photos { get; set; }
-    public int Category { get; set; }
+    public CategoryDto Category { get; set; }
 }

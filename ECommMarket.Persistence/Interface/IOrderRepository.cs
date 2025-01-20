@@ -4,4 +4,5 @@ namespace ECommMarket.Persistence.Interface;
 
 public interface IOrderRepository : IRepository<Order>
 {
+    Task<int> GetLastOrderId();
 }

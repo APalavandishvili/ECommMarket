@@ -51,12 +51,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="admin-page-orders.html" class="nav-link">
-                            შეკვეთები
-                        </a>
+                            <a asp-controller="Order" asp-action="CmsOrders" class="nav-link">შეკვეთები</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href=""
+                            <a asp-controller="Categories" asp-action="CmsCategories"
                            class="nav-link dropdown-toggle"
                            id="categoryDropdown"
                            role="button"
@@ -65,8 +63,8 @@
                             კატეგორიები
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            <li><a href="" class="dropdown-item">კატეგორიის დამატება</a></li>
-                            <li><a href="admin-page-category.html" class="dropdown-item">ყველა კატეგორია</a></li>
+                            <li><a asp-controller="Category" asp-action="Add" class="dropdown-item">კატეგორიის დამატება</a></li>
+                            <li><a asp-controller="Category" asp-action="CmsCategories" class="dropdown-item">ყველა კატეგორია</a></li>
                         </ul>
                     </li>
                 </ul>
