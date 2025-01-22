@@ -1,8 +1,13 @@
 ﻿@model ECommMarket.App.Models.OrderViewModel
 @{
     var products = ViewBag.Products as List<ProductViewModel>;
-    var sum = products.Select(x => x.Price * x.Quantity).Sum();
+    decimal sum = 0;
+    if (products is not null)
+    {
+        sum = products.Select(x => x.Price * x.Quantity).Sum();
+    }
 }
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,12 +61,17 @@
                 <h2>ფასი</h2>
             </div>
             <hr>
-            @foreach (var product in products)
+            @if(products is not null)
             {
-                <div class="product">
-                    <p>@product.ProductName x @product.Quantity</p>
-                    <p>@product.Price₾</p>
-                </div>
+                
+            
+                @foreach (var product in products)
+                {
+                    <div class="product">
+                        <p>@product.ProductName x @product.Quantity</p>
+                        <p>@product.Price₾</p>
+                    </div>
+                }
             }
             <hr>
             <div class="subtotal">
@@ -75,7 +85,7 @@
             <h2>გადახდის მეთოდი</h2>
             <div class="method">
                 <label>
-                    <input type="radio" name="payment-method" value="bank-transfer">
+                    <input type="radio" value name="payment-method" value="bank-transfer" checked>
                     <span>საბანკო გადარიცხვა</span>
                 </label>
             </div>

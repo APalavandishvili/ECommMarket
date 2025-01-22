@@ -206,6 +206,7 @@ ul {
 
 .product-brand {
     text-transform: uppercase;
+    font-size: medium;
 }
 
 .product-short-description {
@@ -475,7 +476,7 @@ img {
     color: black;
     display: block;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 16px;
     text-transform: uppercase;
     font-weight: bold;
 }

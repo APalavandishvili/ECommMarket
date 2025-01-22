@@ -3,6 +3,7 @@ using EcommMarket.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using ECommMarket.App.Models;
+using ECommMarket.Domain.Entities;
 
 namespace ECommMarket.App.Controllers;
 
@@ -18,9 +19,9 @@ public class CartController : Controller
     }
 
     [Route("Add")]
-    public IActionResult AddCartItem(int id, int quantity, bool isProductList)
+    public IActionResult AddCartItem(int id, bool isProductList, int quantity)
     {
-        AddOrUpdateCartList(id);
+        AddOrUpdateCartList(id, quantity);
         return isProductList ? RedirectToAction("Index", "Products") : RedirectToAction("ProductItem", "Products", new {id = id});
     }
 
@@ -49,17 +50,25 @@ public class CartController : Controller
                .SetSlidingExpiration(TimeSpan.FromHours(3));
         
         var cartIdentifier = Request.Cookies["cartIdentifier"];
-
-        if (memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        if(cartIdentifier is null)
         {
-            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue);
+            return RedirectToAction("Index", "Products");
+        }
+        if (memoryCache.TryGetValue(cartIdentifier, out Dictionary<int, int>? cacheValue))
+        {
+            if(cacheValue is null)
+            {
+                return View("./Views/Cart/CartItems.cshtml");
+            }
+
+            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue.Keys.ToList());
             List<ProductViewModel> productsViewModel = products.Select(x => new ProductViewModel()
             {
                 Description = x.Description,
                 Id = x.Id,
                 Price = x.Price,
                 ProductName = x.ProductName,
-                Quantity = x.Quantity,
+                Quantity = cacheValue.TryGetValue(x.Id, out int quantity) ? quantity : 1,
                 Photos = new()
                 {
                     new() { PhotoName =  x.Photos!.FirstOrDefault()!.PhotoName, PhotoUrl = x.Photos!.FirstOrDefault()!.PhotoUrl }
@@ -69,12 +78,12 @@ public class CartController : Controller
         }
         else
         {
-            return RedirectToAction("Product", "Index");
+            return RedirectToAction("Index", "Products");
         }
         
     }
 
-    private void AddOrUpdateCartList(int productId)
+    private void AddOrUpdateCartList(int productId, int quantity)
     {
         var cartIdentifier = Request.Cookies["cartIdentifier"];
         if (cartIdentifier == null)
@@ -88,17 +97,20 @@ public class CartController : Controller
         var cacheEntryOptions = new MemoryCacheEntryOptions()
                .SetSlidingExpiration(TimeSpan.FromHours(3));
 
-        if (!memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        if (!memoryCache.TryGetValue(cartIdentifier, out Dictionary<int, int>? cacheValue))
         {
-            cacheValue = new List<int>() { productId };
+            cacheValue = new Dictionary<int, int>() { { productId, quantity == 0 ? 1: quantity } };
 
             memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
         }
         else
         {
-            cacheValue.Add(productId);
+            if (!cacheValue.Keys.Contains(productId))
+            {
+                cacheValue.Add(productId, quantity == 0 ? 1 : quantity);
 
-            memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
+                memoryCache.Set(cartIdentifier, cacheValue, cacheEntryOptions);
+            }
         }
     }
 }

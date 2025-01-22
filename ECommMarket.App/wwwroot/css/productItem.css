@@ -84,15 +84,15 @@ ul {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-    .dropdown-item:hover {
-        color: blue;
-    }
+.dropdown-item:hover {
+    color: blue;
+}
 
 
 .product-detail-page {
     display: flex;
     width: 100%;
-    height: 600px;
+    height: auto;
     /* max-width: 2000px; */
     background-color: #fff;
     border-radius: 8px;
@@ -152,6 +152,13 @@ h2 {
     margin-bottom: 20px;
 }
 
+#quantity {
+    font-size: 16px;
+    margin: 0 10px;
+    width: 30px;
+    text-align: center;
+}
+
 .quantity-selector {
     display: flex;
     align-items: center;
@@ -167,11 +174,6 @@ h2 {
     font-size: 16px;
     border-radius: 4px;
     transition: 0.2s ease;
-}
-
-.quantity-value {
-    font-size: 16px;
-    margin: 0 10px;
 }
 
 .add-to-cart-btn {

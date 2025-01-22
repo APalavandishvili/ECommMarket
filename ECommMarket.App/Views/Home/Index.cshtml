@@ -1,4 +1,6 @@
-﻿<section class="showcase">
+﻿@model IEnumerable<ProductViewModel>;
+
+<section class="showcase">
     <div id="carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -7,13 +9,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active c-item" data-bs-interval="7000">
-                <img src="/images/background/1.jpg" class="d-block w-100 c-img" alt="nature-picture-1">
+                <img src="/images/background/background6.jpg" class="d-block w-100 c-img" alt="nature-picture-1">
             </div>
             <div class="carousel-item c-item" data-bs-interval="7000">
-                <img src="/images/background/2.jpg" class="d-block w-100 c-img" alt="nature-picture-2">
+                <img src="/images/background/background7.jpg" class="d-block w-100 c-img" alt="nature-picture-2">
             </div>
             <div class="carousel-item c-item" data-bs-interval="7000">
-                <img src="/images/background/3.jpg" class="d-block w-100 c-img" alt="nature-picture-3">
+                <img src="/images/background/background8.jpg" class="d-block w-100 c-img" alt="nature-picture-3">
             </div>
         </div>
     </div>
@@ -28,209 +30,32 @@
 </section>
 <section class="items">
     <h2 class="product-category">შეთავაზებები</h2>
-    <button class="pre-btn"><img src="/images/background/slider-left-btn.svg" alt=""></button>
-    <button class="nxt-btn"><img src="/images/background/slider-right-btn.svg" alt=""></button>
+    <button class="pre-btn"><img src="/images/buttons/slider-left-btn.svg" alt=""></button>
+    <button class="nxt-btn"><img src="/images/buttons/slider-right-btn.svg" alt=""></button>
     <div class="product-container">
-        <div class="product-card">
-            <div class="product-image">
-                <a href="">
-                    <img src="/images/products/shoe-1.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
+        @foreach (ProductViewModel product in Model)
+        {
+            <div class="product-card">
+                <div class="product-image">
+                    @* <span class="discount-tag">-50%</span> *@
+                    <a href="">
+                        <img src="@product.Photos.First().PhotoUrl" class="product-thumb" alt="">
+                    </a>
+                    <button class="card-btn" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {id = product.Id, isProductList = false})'">კალათაში დამატება</button>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-brand">@product.ProductName</h2>
+                    <p class="product-short-description"></p>
+                    <span class="price">₾@product.Price</span><span class="actual-price"></span>
+                </div>
             </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <span class="price">₾20</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">-50%</span>
-                <a href="">
-                    <img src="/images/products/shoe-4.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-3.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-1.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-3.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-4.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-2.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-4.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-1.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-2.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-4.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-3.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-3.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
-        <div class="product-card">
-            <div class="product-image">
-                <span class="discount-tag">50% off</span>
-                <a href="">
-                    <img src="/images/products/shoe-1.png" class="product-thumb" alt="">
-                </a>
-                <button class="card-btn">კალათაში დამატება</button>
-            </div>
-            <div class="product-info">
-                <h2 class="product-brand">brand</h2>
-                <p class="product-short-description">a short line about the cloth..</p>
-                <span class="price">₾20</span><span class="actual-price">₾40</span>
-            </div>
-        </div>
+        }
     </div>
 </section>
 <section class="ad-1">
     <div class="wrapper">
         <div class="wrapper_img">
-            <img src="/images/background/1.jpg" alt="Latte-starbucks">
+            <img src="/images/background/background5.jpg" alt="Latte-starbucks">
         </div>
         <div class="wrapper_text">
             <div class="wrapper_text--cont">

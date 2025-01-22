@@ -24,17 +24,21 @@ public class PaymentController : Controller
     public async Task<IActionResult> Index()
     {
         var cartIdentifier = Request.Cookies["cartIdentifier"];
-
-        if (memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        if(cartIdentifier is null)
         {
-            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue);
+            return RedirectToAction("CartItems", "Cart");
+        }
+
+        if (memoryCache.TryGetValue(cartIdentifier, out Dictionary<int, int>? cacheValue))
+        {
+            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue.Keys.ToList());
             List<ProductViewModel> productsViewModel = products.Select(x => new ProductViewModel()
             {
                 Description = x.Description,
                 Id = x.Id,
                 Price = x.Price,
                 ProductName = x.ProductName,
-                Quantity = x.Quantity,
+                Quantity = cacheValue.TryGetValue(x.Id, out int quantity) ? quantity : 1,
                 Photos = new()
                 {
                     new() { PhotoName =  x.Photos!.FirstOrDefault()!.PhotoName, PhotoUrl = x.Photos!.FirstOrDefault()!.PhotoUrl }
@@ -52,9 +56,16 @@ public class PaymentController : Controller
     {
         var cartIdentifier = Request.Cookies["cartIdentifier"];
 
-        if (memoryCache.TryGetValue(cartIdentifier, out List<int>? cacheValue))
+        if (!ModelState.IsValid) 
         {
-            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue);
+            return View("/Views/Payment/Payment.cshtml", model);
+        }
+
+        if (memoryCache.TryGetValue(cartIdentifier, out Dictionary<int, int>? cacheValue))
+        {
+            List<ProductDto> products = await productService.GetAllByIdAsync(cacheValue.Keys.ToList());
+            products.ForEach(x => x.Quantity = cacheValue.TryGetValue(x.Id, out int quantity) ? quantity : 1);
+
             var lastOrder = await orderService.GetLastOrderId();
             lastOrder++;
 
