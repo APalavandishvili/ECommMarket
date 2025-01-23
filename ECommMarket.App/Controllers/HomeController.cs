@@ -19,17 +19,10 @@ namespace ECommMarket.App.Controllers
             this.categoryService = categoryService;
         }
 
+        [Route("")]
         public async Task<IActionResult> Index()
         {
             var products = await productService.GetAllAsync();
-            var categories = await categoryService.GetAllAsync();
-
-            ViewBag.Categories = categories.Select(x => new CategoryViewModel()
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
-
             var productViewModel = products.Select(x => new ProductViewModel()
             {
                 Id = x.Id,
@@ -47,5 +40,16 @@ namespace ECommMarket.App.Controllers
             return View(productViewModel);
         }
 
+        [Route("Services")]
+        public async Task<IActionResult> Services()
+        {
+            return View("/Views/Home/Services.cshtml");
+        }
+
+        [Route("Partners")]
+        public async Task<IActionResult> Partners()
+        {
+            return View("/Views/Home/Partners.cshtml");
+        }
     }
 }
