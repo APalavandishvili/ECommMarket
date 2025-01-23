@@ -22,6 +22,7 @@ public class LoginController : Controller
         return View("/Views/Cms/Login.cshtml");
     }
 
+    [Route("Authorize")]
     public async Task<IActionResult> Login(LoginViewModel request)
     {
         var token = await userService.Login(new()

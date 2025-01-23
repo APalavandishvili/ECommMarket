@@ -1,6 +1,7 @@
 ﻿using ECommMarket.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using EcommMarket.Application.Interfaces;
+using ECommMarket.App.Filters;
 
 namespace ECommMarket.App.Controllers;
 
@@ -13,6 +14,7 @@ public class CategoryController : Controller
         this.categoryService = categoryService;
     }
 
+    [Authorization]
     [Route("Admin")]
     public async Task<IActionResult> CmsCategories()
     {
@@ -26,12 +28,14 @@ public class CategoryController : Controller
         return View("./Views/Cms/Categories/CategoryList.cshtml", model);
     }
 
+    [Authorization]
     [Route("Admin/Add")]
     public async Task<IActionResult> Add()
     {
         return View("./Views/Cms/Categories/AddCategory.cshtml");
     }
 
+    [Authorization]
     [Route("Admin/Categories/Add")]
     public async Task<IActionResult> AddCategory(CategoryViewModel model)
     {

@@ -3,6 +3,7 @@ using ECommMarket.Persistence;
 using Microsoft.EntityFrameworkCore;
 using ECommMarket.Persistence.Data;
 using ECommMarket.Application.Cache;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 internal class Program
 {
@@ -16,7 +17,13 @@ internal class Program
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddDbContext<MarketDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddSingleton<CartMemoryCache>();
-
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        });
+        
         var app = builder.Build();
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
@@ -30,6 +37,7 @@ internal class Program
         app.UseStaticFiles();
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(

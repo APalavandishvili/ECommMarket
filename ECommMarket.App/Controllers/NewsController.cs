@@ -2,6 +2,7 @@
 using EcommMarket.Application.Interfaces;
 using EcommMarket.Application.Services;
 using ECommMarket.App.Extensions;
+using ECommMarket.App.Filters;
 using ECommMarket.App.Models;
 using ECommMarket.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,7 @@ public class NewsController : Controller
         return View("./Views/News/News.cshtml", newsViewModel);
     }
 
+    [Authorization]
     [Route("Admin/News")]
     public async Task<IActionResult> CmsIndex()
     {
@@ -79,12 +81,14 @@ public class NewsController : Controller
         return View("./Views/News/NewsItem.cshtml", newsItemViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Add")]
     public async Task<IActionResult> AddNews()
     {
         return View("./Views/Cms/News/AddNews.cshtml");
     }
 
+    [Authorization]
     [Route("Admin/News/Add")]
     public async Task<IActionResult> Add(NewsViewModel model)
     {
@@ -105,6 +109,7 @@ public class NewsController : Controller
         return RedirectToAction("CmsIndex");
     }
 
+    [Authorization]
     [Route("Admin/Edit")]
     public async Task<IActionResult> Edit(int id)
     {
@@ -126,6 +131,7 @@ public class NewsController : Controller
         return View("./Views/Cms/News/EditNews.cshtml", newsItemViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Update")]
     public async Task<IActionResult> Update(int id, NewsViewModel model)
     {
@@ -147,6 +153,7 @@ public class NewsController : Controller
         return RedirectToAction("CmsIndex");
     }
 
+    [Authorization]
     [Route("Admin/News/Delete/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -155,6 +162,7 @@ public class NewsController : Controller
         return RedirectToAction("CmsIndex");
     }
 
+    [Authorization]
     [Route("Admin/DeletePhoto")]
     public async Task DeletePhoto(string photoName)
     {

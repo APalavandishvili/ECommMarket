@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using EcommMarket.Application.Dto;
 using ECommMarket.Domain.Entities;
 using ECommMarket.App.Extensions;
+using ECommMarket.App.Filters;
 
 namespace ECommMarket.App.Controllers;
 
@@ -40,6 +41,7 @@ public class ProductsController : Controller
         return View("./Views/Products/ProductList.cshtml", productViewModel);
     }
 
+    [Authorization]
     [Route("Admin")]
     public async Task<IActionResult> CmsProducts()
     {
@@ -61,6 +63,7 @@ public class ProductsController : Controller
         return View("./Views/Cms/Products/ProductList.cshtml", productViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Add")]
     public async Task<IActionResult> AddProducts()
     {
@@ -75,6 +78,7 @@ public class ProductsController : Controller
         return View("./Views/Cms/Products/AddProduct.cshtml");
     }
 
+    [Authorization]
     [Route("Admin/Products/Edit")]
     public async Task<IActionResult> EditProducts(int id)
     {
@@ -126,6 +130,7 @@ public class ProductsController : Controller
         return View("./Views/Products/ProductItem.cshtml", productItemViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Products/Add")]
     public async Task<IActionResult> Add(ProductViewModel model)
     {
@@ -150,6 +155,7 @@ public class ProductsController : Controller
         return RedirectToAction("CmsProducts");
     }
 
+    [Authorization]
     [Route("Admin/Edit")]
     public async Task<IActionResult> Edit(int id, ProductViewModel productViewModel)
     {
@@ -173,6 +179,7 @@ public class ProductsController : Controller
         return RedirectToAction("CmsProducts");
     }
 
+    [Authorization]
     [Route("Admin/Delete")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -181,6 +188,7 @@ public class ProductsController : Controller
         return RedirectToAction("CmsProducts");
     }
 
+    [Authorization]
     [Route("Admin/Delete/Photo")]
     public async Task<IActionResult> DeletePhoto(int photoId,int id)
     {

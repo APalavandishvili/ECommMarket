@@ -3,6 +3,7 @@ using ECommMarket.App.Models;
 using EcommMarket.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 using EcommMarket.Application.Dto;
+using ECommMarket.App.Filters;
 
 namespace ECommMarket.App.Controllers;
 
@@ -15,6 +16,7 @@ public class OrderController : Controller
         this.orderService = orderService;
     }
 
+    [Authorization]
     [Route("Admin")]
     public async Task<IActionResult> CmsOrders()
     {
@@ -49,6 +51,7 @@ public class OrderController : Controller
         return View("./Views/Cms/Orders/OrderList.cshtml", orderViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Order/{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -82,6 +85,7 @@ public class OrderController : Controller
         return View("./Views/Cms/Orders/OrderItem.cshtml", orderViewModel);
     }
 
+    [Authorization]
     [Route("Admin/Order/Delete")]
     public async Task<IActionResult> Delete(int id)
     {

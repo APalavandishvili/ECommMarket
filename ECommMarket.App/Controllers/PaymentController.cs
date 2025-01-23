@@ -78,19 +78,6 @@ public class PaymentController : Controller
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 TransactionId = lastOrder.ToString(),
-                //Products = model.Products.Select(o => new ProductDto()
-                //{
-                //    Id = o.Id,
-                //    Description = o.Description,
-                //    Price = o.Price,
-                //    Quantity = o.Quantity,
-                //    ProductName = o.ProductName,
-                //    Photos = o.Photos?.Select(p => new PhotoDto()
-                //    {
-                //        PhotoName = p.PhotoName,
-                //        PhotoUrl = p.PhotoUrl,
-                //    }).ToList(),
-                //}).ToList()
                 Products = products,
             };
 

@@ -41,10 +41,9 @@ public class UserRepository(MarketDbContext context) : IUserRepository
         {
             SigningCredentials = credentials,
             Expires = DateTime.UtcNow.AddHours(1),
-            Subject = GenerateClaims(user)
+            Subject = GenerateClaims(user),
         };
         var token = handler.CreateToken(tokenDescriptor);
-
         return handler.WriteToken(token);
     }
 
@@ -75,7 +74,6 @@ public class UserRepository(MarketDbContext context) : IUserRepository
         var ci = new ClaimsIdentity();
 
         ci.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-        ci.AddClaim(new Claim(ClaimTypes.Email, user.Email));
 
         return ci;
     }
