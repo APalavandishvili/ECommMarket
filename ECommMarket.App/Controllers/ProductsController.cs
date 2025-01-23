@@ -75,7 +75,7 @@ public class ProductsController : Controller
             Name = x.Name
         }).ToList();
 
-        return View("./Views/Cms/Products/AddProduct.cshtml");
+        return View("./Views/Cms/Products/AddProduct.cshtml", new ProductViewModel());
     }
 
     [Authorization]

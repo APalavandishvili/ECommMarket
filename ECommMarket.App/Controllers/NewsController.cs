@@ -85,7 +85,7 @@ public class NewsController : Controller
     [Route("Admin/Add")]
     public async Task<IActionResult> AddNews()
     {
-        return View("./Views/Cms/News/AddNews.cshtml");
+        return View("./Views/Cms/News/AddNews.cshtml", new NewsViewModel());
     }
 
     [Authorization]

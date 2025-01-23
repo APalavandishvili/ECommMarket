@@ -16,9 +16,7 @@
         <p class="author">@Model.Timestamp.ToShortDateString()</p>
         <img src="/images/products/shoe-1.png" class="article-image">
         <div class="news-story">
-            <p>
-                @Model.Article
-            </p>
+            @Html.Raw(Model.Article)
         </div>
     </article>
 </main>
