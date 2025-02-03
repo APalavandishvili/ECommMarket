@@ -14,7 +14,7 @@
         <h2>@Model.Title</h2>
         <p class="subheading">@Model.Details</p>
         <p class="author">@Model.Timestamp.ToShortDateString()</p>
-        <img src="/images/products/shoe-1.png" class="article-image">
+        <img src="@Model.Photo.PhotoUrl" class="article-image">
         <div class="news-story">
             @Html.Raw(Model.Article)
         </div>

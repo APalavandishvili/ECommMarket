@@ -1,4 +1,6 @@
-﻿namespace ECommMarket.App.Models;
+﻿using ECommMarket.App.Filters;
+
+namespace ECommMarket.App.Models;
 
 public class ProductViewModel
 {
@@ -9,5 +11,7 @@ public class ProductViewModel
     public string Description { get; set; }
     public CategoryViewModel Category { get; set; }
     public virtual List<PhotoViewModel>? Photos { get; set; }
+
+    [ImageValidator(ErrorMessage = "არავალიდური სურათის ფორმატი ან არავალიდური სურათი, მისაღები ფორმატებია : (.jpg\", \".jpeg\", \".png)")]
     public List<IFormFile> UploadedPhotos { get; set; }
 }

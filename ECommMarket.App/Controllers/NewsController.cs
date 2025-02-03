@@ -92,20 +92,25 @@ public class NewsController : Controller
     [Route("Admin/News/Add")]
     public async Task<IActionResult> Add(NewsViewModel model)
     {
-        var addedPhotos = await PhotoExtension.UploadPhotos([model.UploadedPhoto]);
-
-        await newsService.AddAsync(new NewsDto()
+        if (!ModelState.IsValid)
         {
-            Title = model.Title,
-            Article = model.Article,
-            Details = model.Details,
-            Timestamp = model.Timestamp,
-            Photos = new PhotoDto()
+            ModelState.AddModelError("NewsViewModel", "არავალიდური სურათის ფორმატი ან არავალიოდური სურათი (.jpg\\\", \\\".jpeg\\\", \\\".png)");
+            return View("./Views/Cms/News/AddNews.cshtml", model);
+        }
+            var addedPhotos = await PhotoExtension.UploadPhotos([model.UploadedPhoto]);
+
+            await newsService.AddAsync(new NewsDto()
             {
-                PhotoName = addedPhotos.First().PhotoName,
-                PhotoUrl = addedPhotos.First().PhotoUrl,
-            },
-        });
+                Title = model.Title,
+                Article = model.Article,
+                Details = model.Details,
+                Timestamp = model.Timestamp,
+                Photos = new PhotoDto()
+                {
+                    PhotoName = addedPhotos.First().PhotoName,
+                    PhotoUrl = addedPhotos.First().PhotoUrl,
+                },
+            });
         return RedirectToAction("CmsIndex");
     }
 
