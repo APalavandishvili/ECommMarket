@@ -13,6 +13,12 @@
 <div class="products">
     <div class="container">
         <div class="product-items">
+            @if (Model.Count() == 0)
+            {
+                <div class="product">
+                    <h1>პროდუქცია არ მოიძებნა</h1>
+                </div>
+            }
             @foreach (ProductViewModel product in Model)
             {
                 <!-- single product -->
