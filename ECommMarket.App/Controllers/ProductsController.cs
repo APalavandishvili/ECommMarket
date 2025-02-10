@@ -2,9 +2,9 @@
 using EcommMarket.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using EcommMarket.Application.Dto;
-using ECommMarket.Domain.Entities;
 using ECommMarket.App.Extensions;
 using ECommMarket.App.Filters;
+using EcommMarket.Application;
 
 namespace ECommMarket.App.Controllers;
 
@@ -22,9 +22,9 @@ public class ProductsController : Controller
     }
 
     [Route("")]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CategoryType type = 0)
     {
-        var products = await productService.GetAllAsync();
+        var products = await productService.GetAllAsync(type);
         var productViewModel = products.Select(x => new ProductViewModel()
         {
             Id = x.Id,
@@ -45,7 +45,7 @@ public class ProductsController : Controller
     [Route("Admin")]
     public async Task<IActionResult> CmsProducts()
     {
-        var products = await productService.GetAllAsync();
+        var products = await productService.GetAllAsync(CategoryType.All);
         
         var productViewModel = products.Select(x => new ProductViewModel()
         {

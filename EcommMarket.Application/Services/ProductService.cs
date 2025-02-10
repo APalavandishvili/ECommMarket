@@ -48,10 +48,31 @@ public class ProductService : IProductService
         await productRepository.Delete(id);
     }
 
-    public async Task<List<ProductDto>> GetAllAsync()
+    public async Task<List<ProductDto>> GetAllAsync(CategoryType type)
     {
         IEnumerable<Product> enumerable = await productRepository.GetAllAsync();
-        List<ProductDto> products = enumerable.Select(x => new ProductDto()
+        
+        if ((int)type != 3)
+        {
+
+            return enumerable.Where(x => x.Category.Id == (int)type).Select(x => new ProductDto()
+            {
+                Id = x.Id,
+                Description = x.Description,
+                ProductName = x.ProductName,
+                Quantity = x.Quantity,
+                Price = x.Price,
+                Category = new() { Id = x.Category.Id, Name = x.Category.Name },
+                Photos = x.Photos?.Select(p => new PhotoDto()
+                {
+                    Id = p.Id,
+                    PhotoName = p.PhotoName,
+                    PhotoUrl = p.PhotoUrl,
+                }).ToList(),
+            }).ToList();
+        }
+
+        return enumerable.Select(x => new ProductDto()
         {
             Id = x.Id,
             Description = x.Description,
@@ -66,8 +87,6 @@ public class ProductService : IProductService
                 PhotoUrl = p.PhotoUrl,
             }).ToList(),
         }).ToList();
-
-        return products;
     }
 
     public async Task<List<ProductDto>> GetAllByIdAsync(List<int> productIds)

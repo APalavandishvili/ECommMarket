@@ -1,8 +1,6 @@
 using EcommMarket.Application.Interfaces;
-using EcommMarket.Application.Services;
 using ECommMarket.App.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace ECommMarket.App.Controllers
 {
@@ -22,7 +20,7 @@ namespace ECommMarket.App.Controllers
         [Route("")]
         public async Task<IActionResult> Index()
         {
-            var products = await productService.GetAllAsync();
+            var products = await productService.GetAllAsync(EcommMarket.Application.CategoryType.All);
             var productViewModel = products.Select(x => new ProductViewModel()
             {
                 Id = x.Id,

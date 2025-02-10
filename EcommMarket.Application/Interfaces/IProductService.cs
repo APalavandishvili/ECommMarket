@@ -4,7 +4,7 @@ namespace EcommMarket.Application.Interfaces;
 
 public interface IProductService
 {
-    Task<List<ProductDto>> GetAllAsync();
+    Task<List<ProductDto>> GetAllAsync(CategoryType type);
     Task<List<ProductDto>> GetAllByIdAsync(List<int> productIds);
     Task<ProductDto> GetByIdAsync(int id);
     Task<ProductDto> AddAsync(ProductDto entity);

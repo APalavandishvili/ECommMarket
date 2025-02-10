@@ -33,9 +33,10 @@
                                 პროდუქცია
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                                <li><a  class="dropdown-item">AC</a></li>
-                                <li><a href="" class="dropdown-item">DC</a></li>
-                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index">ყველა</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-type="1">AC</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-type="2">DC</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-type="4">აქსესუარები</a></li>
+                                <li><a class="dropdown-item" asp-controller="Products" asp-action="Index" asp-route-type="3">ყველა</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
