@@ -21,7 +21,8 @@ namespace ECommMarket.App.Controllers
         public async Task<IActionResult> Index()
         {
             var products = await productService.GetAllAsync(EcommMarket.Application.CategoryType.All);
-            var productViewModel = products.Select(x => new ProductViewModel()
+
+            var productViewModel = products.Where(x => x.Price <= 2000).Select(x => new ProductViewModel()
             {
                 Id = x.Id,
                 Description = x.Description,

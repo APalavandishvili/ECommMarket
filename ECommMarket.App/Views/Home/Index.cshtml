@@ -38,7 +38,7 @@
             <div class="product-card">
                 <div class="product-image">
                     @* <span class="discount-tag">-50%</span> *@
-                    <a href="">
+                    <a asp-controller="Products" asp-action="ProductItem" asp-route-id=@product.Id>
                         <img src="@product.Photos.First().PhotoUrl" class="product-thumb" alt="">
                     </a>
                     <button class="card-btn" onclick="location.href='@Url.Action("AddCartItem", "Cart", new {id = product.Id, isProductList = false})'">კალათაში დამატება</button>
@@ -46,7 +46,7 @@
                 <div class="product-info">
                     <h2 class="product-brand">@product.ProductName</h2>
                     <p class="product-short-description"></p>
-                    <span class="price">₾@product.Price</span><span class="actual-price"></span>
+                    <span class="price">₾@product.Price.ToString("N0")</span><span class="actual-price"></span>
                 </div>
             </div>
         }
@@ -59,9 +59,9 @@
         </div>
         <div class="wrapper_text">
             <div class="wrapper_text--cont">
-                <h2 class="ad-h2">Find your fall</h2>
-                <p class="ad-p">Embrace fall in full flavor with a Pumpkin Spice Latte, Apple Crisp Oatmilk Macchiato or Chai Latte.</p>
-                <a href="#" class="btn-section-1">Order Now</a>
+                <h2 class="ad-h2">Energize Your Ideas</h2>
+                @* <p class="ad-p"></p> *@
+                <a asp-controller="Products" asp-action="Index" class="btn-section-1">Order Now</a>
             </div>
         </div>
     </div>

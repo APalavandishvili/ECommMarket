@@ -1,7 +1,12 @@
-﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+﻿@font-face {
+    font-family: 'bpg_glaho_sylfaen';
+    src: url('/fonts/bpg_glaho_sylfaen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
-    font-family: 'FiraGO', sans-serif;
+    font-family: 'bpg_glaho_sylfaen', sans-serif;
     margin: 0;
     padding: 0;
     background-color: white;

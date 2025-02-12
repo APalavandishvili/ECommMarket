@@ -22,7 +22,7 @@ public class ProductsController : Controller
     }
 
     [Route("")]
-    public async Task<IActionResult> Index(CategoryType type = 0)
+    public async Task<IActionResult> Index(CategoryType type = CategoryType.All)
     {
         var products = await productService.GetAllAsync(type);
         var productViewModel = products.Select(x => new ProductViewModel()

@@ -33,7 +33,7 @@
                                 <img src="@product.Photos?.First().PhotoUrl" alt="Product 1">
                                 <span>@product.ProductName</span>
                             </td>
-                            <td>₾@product.Price</td>
+                            <td>₾@product.Price.ToString("N0")</td>
                             <td>
                                 <input type="number" value="@product.Quantity" min="1" class="cart-quantity">
                             </td>

@@ -43,6 +43,11 @@ public class OrderRepository(MarketDbContext context) : IOrderRepository
     public async Task<int> GetLastOrderId()
     {
         var lastOrder = await context.Orders.OrderByDescending(x => x.Id).FirstOrDefaultAsync();
-        return lastOrder.Id;
+        if(lastOrder is not null)
+            return lastOrder.Id;
+        else
+        {
+            return 1;
+        }
     }
 }

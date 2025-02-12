@@ -1,7 +1,12 @@
-﻿@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:700i');
+﻿@font-face {
+    font-family: 'bpg_glaho_sylfaen';
+    src: url('/fonts/bpg_glaho_sylfaen.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body {
-    font-family: 'FiraGO', sans-serif;
+    font-family: 'bpg_glaho_sylfaen', sans-serif;
     background-color: white;
     margin-top: 150px;
     padding: 0;
@@ -141,7 +146,7 @@ h2 {
 
 .price {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: normal;
     color: #000;
     margin-bottom: 10px;
 }
